@@ -42,12 +42,13 @@ Sample code:
 <code>
     ty = Yiyarpa("மாதவா போதி வரதா வருளமலா\nபாதமே யோத சுரரைநீ - தீதகல\nமாயா நெறியளிப்பா யின்றன் பகலாச்சீர்த்\nதாயே யலகில்லா டாம்")  
 	
-	ty.analyze()  </br> 
+	ty.analyze()  
 </code>
-	<b> OR </b>  </br>  
+	<b> OR </b>  
 <code>  	
-	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VEPAA,get_individual_poem_analysis=True  </br>
-	print(poem_check[0]) # print poem type </br>
+	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VEPAA,get_individual_poem_analysis=True
+	
+	print(poem_check[0]) # print poem type   
 	
 </code>
 

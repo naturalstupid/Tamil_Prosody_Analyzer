@@ -1,5 +1,5 @@
 # Tamil Prosody Analyzer / தமிழ் இயற்பா நிரலி
-This provides a python package to analyze Tamil poems and find out the poem types.
+This provides a python package to analyze Tamil poems and find out the poem types.  
 இயற்றமிழ் என்பது நினைத்த கருத்தை உணர்த்துவதையே நோக்கமாகக் கொண்டு நடப்பது, பேச்சும், உரையும் செய்யுளும் இதில் அடங்கும். இயற்றமிழ்ச் செய்யுளை இயற்பா என்பர்.
 
 இசைத்தமிழ் என்பது இசையின்பம் அளித்தலையே முதன்மை நோக்கமாகக் கொண்டு நடப்பது; சொற்பொருள் இன்பங்களையும் கொடுக்கக் கூடியது. இசைத்தமிழ் நூல்கள்; தேவாரம், திருவாசகம், நாலாயிரப் பனுவலில் (நாலாயிர திவ்விய பிரபந்தம்) முதலாயிரம், பெரிய திருமொழி, திருவாய்மொழி ஆகியன; திருப்புகழ் முதலியன.
@@ -28,12 +28,12 @@ This package contains five classes namely Ezhuthu, Sol, Adi, Yiyarpaa and Yaappu
 4. Yiyarpu:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Adi). Provides methods such as sandha\_seergal(), thaLaigaL(), osaigaL(), vikarpam() etc.  
 5. Yaappu:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpu). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc. 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In addition it also accepts two optional arguments namely: 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpu). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In addition it also accepts two optional arguments namely:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_aaydham\_as\_kuril=False/True and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru-False=True    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It provides a method <b> analyze() </b> with two optional arguments namely:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>poem\_type\_enum</b> and  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It provides a method <b> analyze() </b> with two optional arguments namely:   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>poem\_type\_enum</b> and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>get\_individual\_poem\_analysis=False/True</b>    
 
 ##Usage  
@@ -43,8 +43,8 @@ Sample code:
     ty = Yiyarpa("மாதவா போதி வரதா வருளமலா\nபாதமே யோத சுரரைநீ - தீதகல\nமாயா நெறியளிப்பா யின்றன் பகலாச்சீர்த்\nதாயே யலகில்லா டாம்")  
 	ty.analyze()  </br>
 	<b> OR </b>  </br>
-	[poem\_check, poem\_analysis] =  ty.analyze(utils.POEM\_TYPES.VEPAA,get_individual_poem_analysis=True  </br>
-	print(poem\_check[0]) # print poem type </br>
+	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VEPAA,get_individual_poem_analysis=True  </br>
+	print(poem_check[0]) # print poem type </br>
 	
 </code>
 

@@ -31,7 +31,7 @@ This package contains five classes namely Ezhuthu, Sol, Adi, Yiyarpaa and Yaappu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpu). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In addition it also accepts two optional arguments namely:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_aaydham\_as\_kuril=False/True and   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru-False=True    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru=False/True    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It provides a method <b> analyze() </b> with two optional arguments namely:   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>poem\_type\_enum</b> and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>get\_individual\_poem\_analysis=False/True</b>    

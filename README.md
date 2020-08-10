@@ -46,7 +46,7 @@ Sample code:
 </code>
 	<b> OR </b>  <br>
 <code>  	
-	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VEPAA,get_individual_poem_analysis=True)
+	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VENPAA,get_individual_poem_analysis=True)
 	
 	print(poem_check[0]) # print poem type   
 	

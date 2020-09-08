@@ -50,14 +50,22 @@ Sample code:
 </code>
 	<b> OR </b>  <br>
 <code>  	
-    paa_check,poem_analysis = tp.analyze(utils.POEM_TYPES.VENPA)#utils.POEM_TYPES.VENPA,get_individual_poem_analysis=False)
+    paa_check,poem_analysis = tp.analyze(utils.POEM_TYPES.VENPA)
+	
     print('============================================')
+
     print('POEM Results:',paa_check[1] + RULE_CHECK(paa_check[0]))
+    
     print('POEM Results:',paa_check[2])
+    
     print(tp.thaLaigaL())
+    
     print(tp.seergaL(True))
+    
     print(tp.asaigaL())
+    
     print(tp.asai_words())
+    
 </code>
 	============================================
 	

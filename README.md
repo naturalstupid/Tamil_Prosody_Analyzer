@@ -25,10 +25,10 @@ This package contains five classes namely Ezhuthu, Sol, Adi, Yiyarpaa and Yaappu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil word (and calls internally Ezhuthu). Provides methods such as asaigaL() **Note: upper case L, thodai\_matches(with\_another\_word\_text) etc.  
 3. Adi:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil sentence (and calls internally Sol). Provides methods such as sandha\_ozhungu(), seer\_thodai\_words() etc.  
-4. Yiyarpu:  
+4. Yiyarpa:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Adi). Provides methods such as sandha\_seergal(), thaLaigaL(), osaigaL(), vikarpam() etc.  
 5. Yaappu:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpu). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpa). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In addition it also accepts two optional arguments namely:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_aaydham\_as\_kuril=False/True and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru=False/True    

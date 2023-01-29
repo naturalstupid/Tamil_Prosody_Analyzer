@@ -12,11 +12,11 @@ Tamil poems are of two types namely:
 1.3 வஞ்சிப்பா மற்றும் வெண்பாவினம்  
 1.4 கலிப்பா மற்றும் வெண்பாவினம்  
 1.5 மருட்பா (மருள் - மயக்கம்; கலத்தல். வெண்பாவும் ஆசிரியப்பாவும் கலந்து அமைவது) <b>(Not Implemented)</b>  
-2. இசைப்பா <b>(Not Implemented)</b>  
+2. இசைப்பா   
 2.1 வண்ணப்பா  
 2.2 சந்தப்பா  
-2.2 சிந்துப்பா  
-2.4 உருப்படிகள்  
+2.2 சிந்துப்பா  <b>(Not Implemented)</b>
+2.4 உருப்படிகள்  <b>(Not Implemented)</b>
 
 This package contains five classes namely Ezhuthu, Sol, Adi, Yiyarpaa and Yaappu:
 1. Ezhuthu:  

@@ -1,12 +1,19 @@
+# coding=utf8
+from yaappu import grammar
 from grammar import Ezhuthu, Sol, Adi, Yiyarpa, Yaappu
-import utils as utils
+from yaappu import utils as utils
+from yaappu import Sandhapa, Vannapa
 #from yaappu import Yaappu
 char_class_name = 'Ezhuthu'
 word_class_name = 'Sol'
 line_class_name = 'Adi'
 poem_class_name = 'Yiyarpa'
 yaappu_class_name = 'Yaappu'
+sandhapa_class_name = 'Sandhapa.Sandhapa'
+vannapa_class_name = 'Vannapa.Vannapa'
 test_input_folder = 'test_input/'
+vannappa_folder = test_input_folder + 'vannappa_examples/'
+sandhappa_folder = test_input_folder + 'sandhappa_examples/'
 
 GREEN_CHECK = u'\u2714  '
 RED_CROSS = u'\u274C  '
@@ -40,17 +47,17 @@ def class_attribute_unit_test(class_name, init_value, attribute_name, expected_r
     actual_result = getattr(obj,attribute_name)
     unit_test(test_name,expected_result,actual_result)
 
-def run_yaappu_unit_tests():
-    run_yaappu_venpa_unit_tests()
-    run_yaappu_asiriyapa_unit_tests()
-    run_yaappu_kalipa_unit_tests()
-    run_yaappu_vanjipa_unit_tests()
-    run_yaappu_venpa_subtype_tests()
-    run_yaappu_asiriyapa_subtype_tests()
-    run_yaappu_kalipa_subtype_tests()
-    run_yaappu_vanjipa_subtype_tests()
+def run_yiyarpa_unit_tests():
+    run_yiyarpa_venpa_unit_tests()
+    run_yiyarpa_asiriyapa_unit_tests()
+    run_yiyarpa_kalipa_unit_tests()
+    run_yiyarpa_vanjipa_unit_tests()
+    run_yiyarpa_venpa_subtype_tests()
+    run_yiyarpa_asiriyapa_subtype_tests()
+    run_yiyarpa_kalipa_subtype_tests()
+    run_yiyarpa_vanjipa_subtype_tests()
 
-def run_yaappu_vanjipa_subtype_tests():
+def run_yiyarpa_vanjipa_subtype_tests():
     vanjipavinam_map = {"Vanjippavinam_Virutham.txt" : "வஞ்சி விருத்தம் வஞ்சிப்பாவினம்",
     "Vanjippavinam_Thazhisai.txt" : "வஞ்சித் தாழிசை வஞ்சிப்பாவினம்",
     "Vanjippavinam_ThuRai.txt" : "வஞ்சித்  துறை வஞ்சிப்பாவினம்",}
@@ -61,7 +68,7 @@ def run_yaappu_vanjipa_subtype_tests():
         paa_check = ty.check_for_vanjipaavinam()
         unit_test(poem_file, vanjipavinam_map.get(poem_file).strip(), paa_check[1].strip())
     
-def run_yaappu_kalipa_subtype_tests():
+def run_yiyarpa_kalipa_subtype_tests():
     kalipavinam_map = {"Kalipaavinam_KaliVirutham.txt" : "கலி விருத்தம் கலிப்பாவினம்",
     "Kalipaavinam_ThuRai.txt" : "கலித்துறை கலிப்பாவினம்",
     "Kalipaavinam_Thazhisai.txt" : "கலித் தாழிசை கலிப்பாவினம்",
@@ -73,13 +80,13 @@ def run_yaappu_kalipa_subtype_tests():
         paa_check = ty.check_for_kalipaavinam()
         unit_test(poem_file, kalipavinam_map.get(poem_file).strip(), paa_check[1].strip())
     
-def run_yaappu_asiriyapa_subtype_tests():
+def run_yiyarpa_asiriyapa_subtype_tests():
     asiriyapavinam_map = {"Asiriyappavinam_ThuRai_Madakkai_1.txt" : "ஆசிரியத் துறை ஆசிரியப்பாவினம்",
-    "Asiriyappavinam_AruSeerViruthamtxt.txt" : "ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
+    "Asiriyappavinam_AruSeerViruthamtxt.txt" : "அறுசீர் ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
     "Asiriyappavinam_ThuRai.txt" : "ஆசிரியத் துறை ஆசிரியப்பாவினம்",
     "Asiriyappavinam_Thazhisai.txt" : "ஆசிரியத் தாழிசை ஆசிரியப்பாவினம்",
-    "Asiriyappavinam_ENSeerViruthamtxt.txt" : "ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
-    "Asiriyappavinam_EzhuSeerViruthamtxt.txt" : "ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
+    "Asiriyappavinam_ENSeerViruthamtxt.txt" : "எண்சீர் ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
+    "Asiriyappavinam_EzhuSeerViruthamtxt.txt" : "எழுசீர் ஆசிரிய/வெளி விருத்தம் ஆசிரியப்பாவினம்",
     "Asiriyappavinam_ThuRai_Madakkai_2.txt" : "ஆசிரியத் துறை ஆசிரியப்பாவினம்",}
     for poem_file in asiriyapavinam_map:
         #print(poem_file, venpa_map.get(poem_file))
@@ -88,7 +95,7 @@ def run_yaappu_asiriyapa_subtype_tests():
         paa_check = ty.check_for_asiriyapaavinam()
         unit_test(poem_file, asiriyapavinam_map.get(poem_file).strip(), paa_check[1].strip())
     
-def run_yaappu_venpa_subtype_tests():
+def run_yiyarpa_venpa_subtype_tests():
     venpaavinam_map = {"VenPaavinam_KuraLVeNSendhuRai.txt" : "குறள் துறை வெண்பாவினம்", 
                        "VenPaavinam_VeNThaazhisai.txt" : "வெண் தாழிசை வெண்பாவினம்",
                        "VenPaavinam_KuraLThaazhisai.txt" : "குறள்  தாழிசை வெண்பாவினம்", 
@@ -101,14 +108,14 @@ def run_yaappu_venpa_subtype_tests():
         paa_check = ty.check_for_venpaavinam()
         unit_test(poem_file, venpaavinam_map.get(poem_file).strip(), paa_check[1].strip())
 
-def run_yaappu_venpa_unit_tests():
+def run_yiyarpa_venpa_unit_tests():
     venpa_map = {"VeNPA_oru_vikarpa_naerisai.txt" :  "ஒரு விகற்ப நேரிசை வெண்பா ", 
     "VenPa_pala_vikarpa_innisai.txt" : "இரு விகற்ப நேரிசை வெண்பா ",
-    "VenPA_iru_vikarpa_naerisai.txt" : "பல விகற்ப நேரிசை வெண்பா ",
+    "VenPA_iru_vikarpa_naerisai.txt" : "இரு விகற்ப நேரிசை வெண்பா ",
     "VeNPa_oru_vikarpa_kuraL.txt" : "ஒரு விகற்ப குறள் வெண்பா ",
-    "VenPa_naerisa_sindhiyal.txt" : "ஒரு விகற்ப சிந்தியல் வெண்பா ",
-    "veNPa_pahrodai.txt" : "பல விகற்ப பஃறொடை வெண்பா ",
-    "VeNPa_innisai_sindhiyal.txt" : "இரு விகற்ப சிந்தியல் வெண்பா ",
+    "VenPa_naerisa_sindhiyal.txt" : "ஒரு விகற்ப நேரிசை சிந்தியல் வெண்பா ",
+    "veNPa_pahrodai.txt" : "பல விகற்ப நேரிசை பஃறொடை வெண்பா ",
+    "VeNPa_innisai_sindhiyal.txt" : "இரு விகற்ப இன்னிசை சிந்தியல் வெண்பா ",
     "VeNPa_oru_vikarpa_innisai.txt" : "ஒரு விகற்ப இன்னிசை வெண்பா ",
     "VeNPa_iru_vikarpa_kuraL.txt" : "ஒரு விகற்ப குறள் வெண்பா ",}
     for poem_file in venpa_map:
@@ -118,7 +125,7 @@ def run_yaappu_venpa_unit_tests():
         paa_check = ty.check_for_venpaa()
         unit_test(poem_file, venpa_map.get(poem_file).strip(), paa_check[1].strip())
     
-def run_yaappu_asiriyapa_unit_tests():
+def run_yiyarpa_asiriyapa_unit_tests():
     asiriyapa_map={"aasiriyappa_naerisai.txt" : "நேரிசை ஆசிரியப்பா",
     "aasiriyappa_iNaiKuRal.txt" : "இணைக்குறள் ஆசிரியப்பா",
     "asiriyappa_nilaimandila.txt":"நிலை மண்டில ஆசிரியப்பா ",}
@@ -130,7 +137,7 @@ def run_yaappu_asiriyapa_unit_tests():
         paa_check = ty.check_for_asiriyapaa()
         unit_test(poem_file, asiriyapa_map.get(poem_file).strip(), paa_check[1].strip())
 
-def run_yaappu_kalipa_unit_tests():
+def run_yiyarpa_kalipa_unit_tests():
     kalipa_map = {"kalippaa_veN.txt" : "வெண் கலிப்பா",
                   "kalippa_tharavu_kocchaga.txt" : "தரவு கொச்சகக் கலிப்பா",}
     for poem_file in kalipa_map:
@@ -140,7 +147,7 @@ def run_yaappu_kalipa_unit_tests():
         paa_check = ty.check_for_kalipaa()
         unit_test(poem_file, kalipa_map.get(poem_file).strip(), paa_check[1].strip())
 
-def run_yaappu_vanjipa_unit_tests():   
+def run_yiyarpa_vanjipa_unit_tests():   
     vanjipa_map = {"vanchipa_sindhadi.txt" : "சிந்தடி வஞ்சிப்பா ",
     "vanchipaa_kuRaladi.txt" : "குறளடி வஞ்சிப்பா ",}
     for poem_file in vanjipa_map:
@@ -243,6 +250,12 @@ def run_line_thodai_tests():
                     + "தனந்தரும் கல்வி தருமொரு நாளும் தளர்வறி(யா)\nமனந்தரும் தெய்வ வடிவும் தரும்நெஞ்சில் வஞ்சமில்(லா)\n\n"
     class_method_unit_test(poem_class_name, poem , 'adi_thodai_lines', expected_result,thodai_index)
 
+    poem = "வெய்யிற் கேற்ற நிழலுண்டு வீசும் தென்றல் காற்றுண்டு\n"+\
+"கையிற் கம்பன் கவியுண்டு கலசம் நிறைய மதுவுண்டு"
+    thodai_index = 1
+    expected_result = 'அடி ' + utils.THODAI_TYPES[thodai_index] + '\n' \
+                    + "வெ(ய்)யிற் கேற்ற நிழலுண்டு வீசும் தென்றல் காற்றுண்டு\nகை(யி)ற் கம்பன் கவியுண்டு கலசம் நிறைய மதுவுண்டு\n\n"
+    class_method_unit_test(poem_class_name, poem , 'adi_thodai_lines', expected_result,thodai_index)
 
 def run_line_linetype_tests():
     for i in range(1,16):
@@ -288,6 +301,7 @@ def run_word_sandha_seer_tests():
     class_method_unit_test(word_class_name,'கருவிளம்', 'sandha_seer','விளம்')
     
 def run_word_thodai_unit_tests():
+    """"-மோனை"""
     class_method_unit_test(word_class_name,'அகல', 'thodai_matches',True,'ஆழ',0)
     class_method_unit_test(word_class_name,'வளர்த்த', 'thodai_matches',True,'மார்பில்',0)
     class_method_unit_test(word_class_name,'இருதலைக்', 'thodai_matches',True,'எறும்பு',0)
@@ -295,6 +309,7 @@ def run_word_thodai_unit_tests():
     class_method_unit_test(word_class_name,'தொட்டிற்', 'thodai_matches',True,'சுடுகாடு',0)
     class_method_unit_test(word_class_name,'நலிந்தோர்க்', 'thodai_matches',True,'ஞாயிறும்',0)
     
+    """-எதுகை"""
     class_method_unit_test(word_class_name,'தட்டு', 'thodai_matches',True,'பட்டு',1)
     class_method_unit_test(word_class_name,'தட்டு', 'thodai_matches',False,'பாட்டு',1)
     class_method_unit_test(word_class_name,'உலகம்', 'thodai_matches',True,'நிலைபெ',1)
@@ -302,7 +317,13 @@ def run_word_thodai_unit_tests():
     class_method_unit_test(word_class_name,'தக்கார்', 'thodai_matches',True,'எச்சத்தாற்',1)
     class_method_unit_test(word_class_name,'வரவு', 'thodai_matches',True,'செலவு',1)
     class_method_unit_test(word_class_name,'அன்பன்', 'thodai_matches',True,'நண்பன்',1)
+    class_method_unit_test(word_class_name,'ஈரநீர் ', 'thodai_matches',True,'கார்கள் ',1)
+    class_method_unit_test(word_class_name,'ஆயபேர் ', 'thodai_matches',True,'தேய்விலா ',1)
+    class_method_unit_test(word_class_name,'சிற்றாடைச் ', 'thodai_matches',True,'சிறுமகள் ',1)
+    class_method_unit_test(word_class_name,'சிலவகைக் ', 'thodai_matches',True,'கிலேசம்',1)
+    class_method_unit_test(word_class_name,'பாடாமல் ', 'thodai_matches',True,'ஓடுவேன்',1)
     
+    """-இயைபு """
     class_method_unit_test(word_class_name,'அன்பன்', 'thodai_matches',True,'நண்பன்',-1)
     class_method_unit_test(word_class_name,'சங்கே', 'thodai_matches',True,'அன்பே',-1)
     class_method_unit_test(word_class_name,'கலா', 'thodai_matches',True,'பலா',-1)
@@ -333,15 +354,43 @@ def run_all_unit_tests():
   run_word_unit_tests()
   run_line_unit_tests()
   run_poem_unit_tests()
-  run_yaappu_unit_tests()
+  run_yiyarpa_unit_tests()
+  run_vannappa_unit_tests()
+  run_sandhappa_unit_tests()
+
+def run_vannappa_unit_tests():
+    import glob
+    vannapa_files = glob.glob(vannappa_folder+'*.txt')
+    for poem_file in vannapa_files:
+        poem =  open(poem_file, "r", encoding="utf-8").read()
+        tp = eval(vannapa_class_name)(poem)
+        paa_check, poem_type, paa_str = tp.check_for_vannapaa()
+        unit_test(poem_file, 'வண்ணப்பா = True',poem_type+' = '+str(paa_check))
+        print(paa_str)#.strip().split('\n')[-1])
+def run_sandhappa_unit_tests():
+    import glob
+    sandhappa_files = glob.glob(sandhappa_folder+'*.txt')
+    for poem_file in sandhappa_files:
+        poem =  open(poem_file, "r", encoding="utf-8").read()
+        tp = eval(sandhapa_class_name)(poem)
+        paa_check, poem_type, paa_str = tp.check_for_sandhapaa()
+        unit_test(poem_file, 'சந்தப்பா = True',poem_type+' = '+str(paa_check))
+        print(paa_check,paa_str)
+def run_specific_tests():
+    poem = "வெய்யிற் கேற்ற நிழலுண்டு வீசும் தென்றல் காற்றுண்டு\n"+\
+"கையிற் கம்பன் கவியுண்டு கலசம் நிறைய மதுவுண்டு"
+    thodai_index = 1
+    expected_result = 'அடி ' + utils.THODAI_TYPES[thodai_index] + '\n' \
+                    + "வெ(ய்)யிற் கேற்ற நிழலுண்டு வீசும் தென்றல் காற்றுண்டு\nகை(யி)ற் கம்பன் கவியுண்டு கலசம் நிறைய மதுவுண்டு\n\n"
+    class_method_unit_test(poem_class_name, poem , 'adi_thodai_lines', expected_result,thodai_index)
 
 if __name__ == '__main__':
     unit_test.counter = 0
     unit_test.failed=0
     unit_test.failed_tests = ''
-
+    #run_specific_tests()
+    #run_vannappa_unit_tests()
     run_all_unit_tests()
-    #run_line_thodai_tests()
       
     if unit_test.failed > 0:
         print(str(unit_test.failed)+ ' out of ' + str(unit_test.counter) + " tests Failed. Test id's of failed tests:",unit_test.failed_tests)

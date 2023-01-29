@@ -31,7 +31,7 @@ This package contains five classes namely Ezhuthu, Sol, Adi, Yiyarpaa and Yaappu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This class accepts a Tamil Poem (and calls internally Yiyarpu). Provides methods such as check\_for\_venpaa(), check\_for\_venpaavinam(), check\_for\_asiriyapaa() etc.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In addition it also accepts two optional arguments namely:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_aaydham\_as\_kuril=False/True and   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru=False/True     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treat\_kutriyaligaram\_as\_otru=False/True    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It provides a method <b> analyze() </b> with two optional arguments namely:   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>poem\_type\_enum</b> and   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>get\_individual\_poem\_analysis=False/True</b>    
@@ -46,7 +46,7 @@ Sample code:
 </code>
 	<b> OR </b>  <br>
 <code>  	
-	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VENPAA,get_individual_poem_analysis=True)
+	[poem_check, poem_analysis] =  ty.analyze(utils.POEM_TYPES.VEPAA,get_individual_poem_analysis=True)
 	
 	print(poem_check[0]) # print poem type   
 	
@@ -60,3 +60,4 @@ The main function also checks whether all 1330 thirukurals  from <b>thiukural.tx
 
 
 
+செயலி

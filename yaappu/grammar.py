@@ -1,4 +1,5 @@
-import utils
+# coding=utf8
+from yaappu import utils
 import string
 """
     TODO: Treat Aaydham as Kuril
@@ -7,8 +8,10 @@ import string
 """
     VenPaa Rules 
 """
-    
-VENPA_RULE_FAC = 1.00
+VENPA_SEER_FRACTION = 0.99
+VENPA_THALAI_FRACTION = 0.99
+VENPA_OSAI_FRACTION = 0.99
+VENPA_SANDHA_FRACTION = 0.99
 _VENPA_RULE_1 = "சீர் இலக்கணம் - ஈற்றடியின் ஈற்றுச்சீரைத் தவிர்த்து ஈரசைச்சீர்களும் காய்ச்சீர்களும் மட்டுமே பயின்று வருதல் வேண்டும்."
 _VENPA_RULE_2 = "தளை இலக்கணம் - வெண்டளைகள் மட்டுமே பயின்று வருதல் வேண்டும்."
 _VENPA_RULE_3 = "அடி இலக்கணம் - ஈற்றடி மூன்று சீர்களும் ஏனைய அடிகள் நான்கு சீர்களும் கொண்டிருத்தல் வேண்டும்."
@@ -19,11 +22,14 @@ _VENPA_NERISAI_RULE_1 = "\t\tநேரிசை வெண்பா -இரண்
 _VENPA_INNISAI_RULE_1 = "\t\tஇன்னிசை வெண்பா-இரண்டாவது அடியில் தனிச்சொல் எதுகை அமைந்திராது."
 _VENPA_PAHRODAI_RULE_1 = "\t\tபஃறொடை வெண்பா - நான்கடிக்கு மேற்பட்ட பல அடிகளால் வரும்."
 _VENPA_SINDHIYAL_RULE_1 = "\t\tசிந்தியல் வெண்பா - மூன்றடியால் வருவது"
+_VENPA_KALIVENPA_RULE_1 = "\t\tகலி வெண்பா - பன்னிரெண்டுக்கு மேற்பட்ட பல அடிகளால் வரும்."
 """
     Asiryappaa rules
 """
-ASIRIYAPA_RULE_FRACTION = 0.45
-ASIRIYAPA_SANDHA_OZHUNGU_FRACTION = 0.50
+ASIRIYAPA_SEER_FRACTION = 0.45
+ASIRIYAPA_THALAI_FRACTION = 0.45
+ASIRIYAPA_OSAI_FRACTION = 0.45
+ASIRIYAPA_SANDHA_FRACTION = 0.50
 _ASIRIYAPA_RULE_1 = "சீர் இலக்கணம் -   ஈரசைச் சீர்கள் மிகுந்து வரும். (தேமா புளிமா கூவிளம் கருவிளம்) "
 _ASIRIYAPA_RULE_2 = "சீர் இலக்கணம் - வஞ்சியுரிச் சீர்கள் (கருவிளங்கனி, கூவிளங்கனி) வராது."
 _ASIRIYAPA_RULE_3 = "ஈற்றுச் சீர் - இலக்கணம்  - ஏ, என், ஓ, ஈ, ஆய், ஐ   - என முடியும்"
@@ -37,11 +43,14 @@ _ASIRIYAPA_RULE_NILAMANDILA_1 = "    நிலை மண்டில ஆசி�
 """
     Kalipaa Rules
 """
-KALIPA_RULE_FRACTION = 0.35 #0.45
-KALIPA_SANDHA_OZHUNGU_FRACTION = 0.50
-KALIPA_THALAI_FRACTION = 0.50
+KALIPA_SEER_FRACTION = 0.35 #0.45
+KALIPA_THALAI_FRACTION = 0.35 #0.45
+KALIPA_OSAI_FRACTION = 0.35 #0.45
+KALIPA_SANDHA_FRACTION = 0.50
 _KALIPA_RULE_1="சீர் இலக்கணம் -   நிறை முதல் சீர் (தேமாங்காய், புளிமாங்காய், கூவிளங்காய், கருவிளங்காய் மிகுந்து வரும்."
-_KALIPA_RULE_2="சீர் இலக்கணம் - நேர் ஈற்றுச் சீர் (தேமா, புளிமா) வராது. நிறை நடுச் சீர் (கருவிளங்கனி, கூவிளங்கனி) வராது."
+_KALIPA_RULE_2="சீர் இலக்கணம் - நேர் ஈற்றுச் சீர் (தேமா, புளிமா) வராது. நிறை நடுச் சீர் (கருவிளங்கனி, கூவிளங்கனி) வராது." \
+                +"\n    - விதி விலக்கு: கொச்சகக் கலிப்பா / வெண் கலிப்பா : (தேமா, புளிமா) வரலாம்.\n" \
+                + " கொச்சகக் கலிப்பா : (கருவிளங்கனி, கூவிளங்கனி) வரலாம்."
 _KALIPA_RULE_3="தளை இலக்கணம் - கலித்தளைகள் மிகுந்து வரும்."
 _KALIPA_RULE_4="ஓசை இலக்கணம் - துள்ளலோசை மிகுந்து வரும்.";
 _KALIPA_RULE_5="அடி - இலக்கணம்  - அடியின் வரையரை  அளவடி. ஈற்றடி சிந்தடி வரலாம்."
@@ -49,7 +58,10 @@ _KALIPA_RULE_5="அடி - இலக்கணம்  - அடியின் �
 """
     VANJIPAA Rules
 """
-VANJIPA_RULE_FRACTION = 0.25
+VANJIPA_SEER_FRACTION = 0.25
+VANJIPA_THALAI_FRACTION = 0.25
+VANJIPA_OSAI_FRACTION = 0.25
+VANJIPA_SANDHA_FRACTION = 0.25
 _VANJIPA_RULE_1 = "சீர் இலக்கணம் - பெரும்பான்மை கனிச் சீர்கள்.  சிறுபான்மை காய்ச் சீர்கள் "
 _VANJIPA_RULE_2 = "தனிச்சொற்கள் தேமா, புளிமா, கூவிளம், கருவிளம் (ஆசிரியச் சுரிதகம்) அசைகளில் அமையும்."
 _VANJIPA_RULE_3 = "தளை இலக்கணம் - ஒன்றிய வஞ்சித் தளையும் ஒன்றாத வஞ்சித்  தளையும்  பெரும்பான்மை. "
@@ -58,7 +70,9 @@ _VANJIPA_RULE_5 = "தனிச்சொல்லை அடுத்து இ�
 _VANJIPA_RULE_6 = "அடி - இலக்கணம் - முழுமையும் குறளடி அல்லது முழுமையும் சிந்தடி, தனிச்சொல் வரை பெற்றிருக்கும்."
 _VANJIPA_KURALADI = "\t\tதனிச்சொல் முன்பு வரை இரண்டடிகள் இருந்ததால் குறளடி."
 _VANJIPA_SINDHADI = "\t\tதனிச்சொல் முன்பு வரை மூன்றடிகள் இருந்ததால் சிந்தடி."
-
+"""
+    VENPAVINAM RULES
+"""
 _VENPAVINAM_KURAL_THAZHISAI = "குறள்  தாழிசை:\n\t\tஇரண்டடியாய் வரும்.  முதலடி நான்கிற்கும் அதிக சீர்களை பெற்று ஈற்றடி அதைவிட சில சீர்கள் குறைவாக பெற்றிருக்கும். "
 _VENPAVINAM_KURAL_THURAI = "குறள் துறை:\n\t\tஇரண்டடி பெற்று இரண்டும் சம சீர்களைப் பெற்றிருக்கும்."
 _VENPAVINAM_VEN_THURAI = "வெண்டுறை :\n\t\tமூன்றடி முதல் ஏழடி வரை பெற்றிருக்கும்.\n" + \
@@ -66,6 +80,9 @@ _VENPAVINAM_VEN_THURAI = "வெண்டுறை :\n\t\tமூன்றடி 
 _VENPAVINAM_VEN_THAZHISAI = "வெண் தாழிசை:\n\t\tமூன்றடிகள் பெற்று, முதல் இரண்டு அடிகளும் அளவடி ஆகவும் ஈற்றடி சிந்தடி ஆகவும் இருக்கும்."
 _VENPAVINAM_VELI_VIRUTHAM = "வெளி விருத்தம்:\n\t\tமூன்று அல்லது நான்கு அடிகளாய் வரும்.\n" + \
                             "\t\tஒவ்வோர் அடி இறுதியிலும் நான்கு சீர்களைத் தாண்டி ஒரு தனிச்சொல் வரும்."
+"""
+    ASIRIYAPAVINAM RULES
+"""
 _ASIRIYAPA_THAZHISAI = "ஆசிரியத் தாழிசை:\n\t\tமூன்றடியாய் வந்து சீர் எண்ணிக்கையால் ஒத்து வரும்."
 _ASIRIYAPA_THURAI = "ஆசிரியத் துறை:\n\t\tநான்கடியாய் ஈற்றயலடி குறைந்து வரும்\n" + \
                     "\t\tஇடையே வரும் அடிகள் இடைமடக்காகவும் (வந்த அடியே திரும்பவும் அடுத்த அடியில் வருதல்) வரும்.\n" + \
@@ -76,6 +93,9 @@ _ASIRIYAPA_VIRUTHAM = "ஆசிரிய விருத்தம்:\n\t\tந�
                         "\t\tநான்கடியும் ஒரே எதுகை அமைப்பைப் பெற்றிருக்க வேண்டும் (ஒரே சீர் அமைப்பைப் பெற்றிருப்பது).\n" + \
                         "\t\tநான்கடியும் ஒரே சந்த ஒழுங்கைப்  பெற்றிருக்க வேண்டும்."
                 
+"""
+    KALIPAVINAM RULES
+"""
 _KALIPA_THAZHISAI = "கலித்தாழிசை:\n\t\tஇரண்டு அல்லது மேற்பட்ட அடிகளால் வரும்.\n" + \
                 "\t\tஈற்றடி சற்று நீண்டு ஏனைய அடிகள் சீர் எண்ணிக்கையில் ஒத்து/ஒவ்வாது வரும்."
 _KALIPA_KATTALAI_THURAI = "கட்டளைக் கலித்துறை:\n\t\tநெடிலடி நான்காய் வரும்.\n" + \
@@ -86,7 +106,9 @@ _KALIPA_KALI_THURAI = "கலித்துறை:\n\t\tநெடிலடி �
 _KALIPA_VIRUTHAM = "கலி விருத்தம்:\n\t\tநான்கு அளவடிகளால் ஆகி, நான்கடியும்  நாற்சீராய் அளவொத்து வரும்.\n" + \
                 "\t\tநான்கடியும் ஒரே எதுகை அமைப்பைப் பெற்றிருக்க வேண்டும் (ஒரே சீர் அமைப்பைப் பெற்றிருப்பது).\n" + \
                 "\t\tநான்கடியும் ஒரே சந்த ஒழுங்கைப்  பெற்றிருக்க வேண்டும்."
-
+"""
+    VANJIPAVINAM RULES
+"""
 _VANJIPA_THAZHISAI = "வஞ்சித் தாழிசை:\n\t\tகுறளடி நான்காய் வரும்.\n" + \
                 "\t\tவஞ்சித்  தாழிசை ஒரு பொருள் மேல் மூன்றடுக்கி  மட்டுமே வரும். தனியே வராது.\n" \
                 + "\t\tதனியே வரின் வஞ்சித் துறையாகி விடும்.\n" \
@@ -95,11 +117,19 @@ _VANJIPA_THURAI = "வஞ்சித்  துறை:\n\t\tகுறளடி 
                 "\t\tபல்வேறு ஓசை அமைப்புகளில் வரும்."
 _VANJIPA_VIRUTHAM = "வஞ்சி விருத்தம்:\n\t\tசிந்தடி நான்கு தனித்து வருவது வஞ்சி விருத்தம்.\n"+ \
                 "\t\tபல்வேறு ஓசை அமைப்புகளில் வரும்."
+"""
+    GLOBAL CONSTANTS
+"""
 GREEN_CHECK = u'\u2714  '
 RED_CROSS = u'\u274C  '
 GEQ = u' \u2265 '
 RULE_CHECK = lambda rc : '\t' + GREEN_CHECK if rc else '\t' + RED_CROSS
 PERCENT = "{:.0%}"
+PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%} )"
+_SANDHA_PAA_NAMES = ["sandhapa","sandhapaa","sandhappa","sandhappaa"]
+_VANNA_PAA_NAMES = ["vannapa","vannapaa","vannappa","vannappaa"]
+_ISAI_PAA_NAMES = _SANDHA_PAA_NAMES+_VANNA_PAA_NAMES
+
 class Ezhuthu(object):
     """ 
         Class for Tamil Character
@@ -110,8 +140,14 @@ class Ezhuthu(object):
             is_aaytham() - to check whether ezhuthu is aaydham
             is_aikaaram() - to check whether ezhuthu is aikaaram
             is_aukaaram() - to check whether ezhuthu is aukaaram
+            is_kutriyalugaram() - to check whether ezhuthu is kutriyalugaram
+            is_kutriyalagaram() - to check whether ezhuthu is kutriyalagaram
+            is_mutriyalugaram() - to check whether ezhuthu is mutriyalugaram
     """
     def __init__(self, tamil_char):
+        """
+            Constructor 
+        """
         self.set_text(tamil_char)
         self._index = 0
         self.set_duration(0.0)
@@ -122,6 +158,8 @@ class Ezhuthu(object):
         self._is_kutriyaligaram = False
         self._is_magarakurukkam = False
         self._is_aaydham = self.is_aaydham()
+        self._is_uyiralabedai = False
+        self._is_otralabedai = False
         if self._is_nedil:
             self._duration = 2.0
         elif self._is_kuril:
@@ -132,12 +170,24 @@ class Ezhuthu(object):
             self._duration = 0.5
             
     def set_text(self, text):
+        """
+            set text for Ezhuthu
+            @param text: 
+        """
         self._text = text
     
     def text(self):
+        """
+            get text for Ezhuthu
+            @return text: 
+        """
         return self._text
     
     def set_index(self, index):
+        """
+            set index for Ezhuthu
+            @param index: 
+        """
         self._index = index
     
     def index(self):
@@ -155,6 +205,18 @@ class Ezhuthu(object):
     def is_aukaaram(self):
         return utils.list_has_element(utils.AUKAARAM, self._text)
 
+    def set_uyiralabedai(self, b):
+        self._is_uyiralabedai = b
+        
+    def is_uyiralabedai(self):
+        return self._is_uyiralabedai  
+
+    def set_otralabedai(self, b):
+        self._is_otralabedai = b
+        
+    def is_otralabedai(self):
+        return self._is_otralabedai  
+
     def set_kuril(self, b):
         self._is_kuril = b
         
@@ -163,7 +225,6 @@ class Ezhuthu(object):
     
     def set_nedil(self, b):
         self._is_nedil = b
-        #print(self._text,'is nediil',self._is_nedil)
         
     def is_nedil(self):
         return self._is_nedil
@@ -224,7 +285,7 @@ class Ezhuthu(object):
         return self._is_magarakurukkam
     
     def set_magarakurukkam(self, b):
-        self._is_magarakurukkam = True
+        self._is_magarakurukkam = b
 
 """
     class for Tamil Word
@@ -238,19 +299,28 @@ class Sol(object):
         self.characters = []
         self.tamil_char_objects = []
         self._asaigaL = ''
+        self._sandha_kuzhippu = ''
+        self._sandha_duration = 0.0
         self._seer_count = 0
         self._seer_type = ""
         self._thaLai_type = ""
         self._osai_type = ""
         if tamil_word != '' or tamil_word != "":
             self.set_text(tamil_word)
-        #print('tamil word',tamil_word)
     
-    def duration(self):
+    def duration(self, paa_type="Yiyarpa"):
+        if paa_type.lower() in _ISAI_PAA_NAMES:
+            return self.sandha_duration()
         _duration = 0.0
         for c in range(self.character_count):
             tc = self.tamil_char_objects[c]
             tChar = self.characters[c]
+            if c < self.character_count-1 and (tc.is_aikaaram() or tc.is_nedil()):
+                if (utils.get_last_morpheme(tChar)+self.characters[c+1] in utils.UYIRALABEDAI):
+                    tc.set_uyiralabedai(True)
+            elif c < self.character_count-1 and (tc.is_aaydham() or tc.is_otru()):
+                if ( tChar+self.characters[c+1] in utils.OTRALABEDAI):
+                    tc.set_otralabedai(True)
             if c == 0 and (tc.is_aikaaram() or tc.is_aukaaram()):  ## AIKAARAM and AUKAARAM
                 tc.set_duration(1.5)
                 tc.set_nedil(True)
@@ -260,7 +330,6 @@ class Sol(object):
             if c >= 0 and c < self.character_count-1 and utils.list_has_element(utils.KUTRIYALIGARAM, tChar) \
                 and utils.list_has_element(utils.YAGARA_VARISAI, self.characters[c+1]): # Kutriyaligaram
                 #and self.characters[c+1] == "யா": # Kutriyaligaram
-                #print('setting kutriyaligaram',tChar,self.characters[c+1])
                 tc.set_kutriyaligaram(True)
             if tChar == 'ம்': # Magarakurukkam
                 if c < self.character_count - 1 and utils.list_has_element(utils.VAGARA_VARISAI, self.characters[c+1]):
@@ -284,7 +353,6 @@ class Sol(object):
             self._text = tamil_word
             import regex
             tamil_word = regex.sub('\{P}','',tamil_word)
-            #print('word',tamil_word)
             self.characters = utils.get_unicode_characters(tamil_word)
             self.character_count = len(self.characters)
             for tc in self.characters:
@@ -298,42 +366,245 @@ class Sol(object):
             self._asaigaL = self.asaigaL()
             self._seer_type= self.seer_type()
     
-    def _get_nko_string(self):
-        self._nko_str = ''
+    def _get_nko_yinam_string(self,paa_type="Yiyarpa", last_word=False, middle_word=False):
+        _nko_str = ''
+        separator = ''
+        c = 0
+        char_count = len(self.tamil_char_objects)
         for tc in self.tamil_char_objects:
+            first_character = (c==0)
+            " Ignore if first character of the word is otru  "
+            if first_character and tc.is_otru():
+                continue
+            last_character = (c == char_count-1)
+            middle_character = (c > 0 and c < char_count-1 )
+            """ for Sandhapaa/Vannappa change aikaaram to kuril """
+            if paa_type.lower() in _ISAI_PAA_NAMES and (tc.is_aikaaram() or tc.is_aukaaram()):
+                tc.set_nedil(False)
+                tc.set_kuril(True)
+            if (last_word or middle_word) and ((last_character and tc.is_kuril()) or (c==char_count-2 and tc.is_kuril())):
+                "TODO: If Last word ends with Laghu (2 mathirai - it should be treated as Kuril - 1 mathirai. "
+                tc.set_nedil(True)
+                tc.set_kuril(False)
+            """
+            if first_character:
+                if tc.is_kuril():
+                    _nko_str += 'K'+separator
+                else:
+                    _nko_str += 'N'+separator
+                c += 1
+                continue
+            """
             if tc.is_nedil():
-                self._nko_str += 'N'
+                if tc.is_vallinam():
+                    _nko_str += 'VN'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MN'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YN'+separator
+                elif tc.is_uyir_ezhuthu():
+                    _nko_str += 'UN'+separator
+                else:
+                    _nko_str += 'VN'+separator # default for non-tamil / vada mozhi
             elif tc.is_kuril():
-                self._nko_str += 'K'
+                if tc.is_vallinam():
+                    _nko_str += 'VK'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MK'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YK'+separator
+                elif tc.is_uyir_ezhuthu():
+                    _nko_str += 'UK'+separator
+                else:
+                    _nko_str += 'VK'+separator # default for non-tamil / vada mozhi
             elif tc.is_otru():
-                self._nko_str += 'O'
+                " TODO: this check does not work in all cases "
+                if (paa_type.lower() in _ISAI_PAA_NAMES) and (not last_word) and \
+                  ((utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_MIDDLE,tc.text()) and middle_character) or  \
+                  (utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_END,tc.text()) and last_character)):
+                    _nko_str += ''
+                elif tc.is_vallinam():
+                    _nko_str += 'VO'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MO'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YO'+separator
+                else:
+                    _nko_str += 'XO'+separator
+            c += 1
+        if _nko_str:
+            if (_nko_str[-1] == separator):
+                _nko_str = _nko_str[:-1]
+        return _nko_str
+
+    def _get_nko_yinam_string_old(self,paa_type="Yiyarpa", last_word=False):
+        _nko_str = ''
+        separator = ''
+        c = 0
+        char_count = len(self.tamil_char_objects)
+        for tc in self.tamil_char_objects:
+            first_character = (c==0)
+            last_character = (c == char_count-1)
+            middle_character = (c > 0 and c < char_count-1 )
+            """ TODO : விதி 3. அடியின் இறுதியிலோ, (சமமாக வரும்) அரையடியின் இறுதியிலோ வரும் குறில்கள் இரண்டு மாத்திரைகள் பெறும். """
+            """ for Sandhapaa/Vannappa change aikaaram to kuril """
+            if paa_type.lower() in _ISAI_PAA_NAMES and (tc.is_aikaaram() or tc.is_aukaaram()):
+                tc.set_nedil(last_word)
+                tc.set_kuril(not last_word)
+            if tc.is_nedil():
+                if tc.is_vallinam():
+                    _nko_str += 'VN'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MN'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YN'+separator
+                elif tc.is_uyir_ezhuthu():
+                    _nko_str += 'UN'+separator
+                else:
+                    _nko_str += 'XN'+separator
+            elif tc.is_kuril():
+                if tc.is_vallinam():
+                    _nko_str += 'VK'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MK'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YK'+separator
+                elif tc.is_uyir_ezhuthu():
+                    _nko_str += 'UK'+separator
+                else:
+                    _nko_str += 'XK'+separator
+            elif tc.is_otru():
+                if tc.is_vallinam():
+                    _nko_str += 'VO'+separator
+                elif tc.is_mellinam():
+                    _nko_str += 'MO'+separator
+                elif tc.is_yidaiyinam():
+                    _nko_str += 'YO'+separator
+                else:
+                    _nko_str += 'XO'+separator
+            c += 1
+        if _nko_str:
+            if (_nko_str[-1] == separator):
+                _nko_str = _nko_str[:-1]
+        return _nko_str
+
+    def _get_nko_string(self,paa_type="Yiyarpa", last_word=False,middle_word=False):
+        _nko_str = ''
+        c = 0
+        char_count = len(self.tamil_char_objects)
+        for tc in self.tamil_char_objects:
+            first_character = (c==0)
+            last_character = (c == char_count-1)
+            middle_character = (c > 0 and c < char_count-1 )
+            """ for Sandhapaa/Vannappa change aikaaram to kuril """
+            if paa_type.lower() in _ISAI_PAA_NAMES and (tc.is_aikaaram() or tc.is_aukaaram()):
+                tc.set_nedil(False)
+                tc.set_kuril(True)
+            if tc.is_nedil():
+                _nko_str += 'N'
+            elif tc.is_kuril():
+                """ விதி 3. அடியின் இறுதியிலோ, (சமமாக வரும்) அரையடியின் இறுதியிலோ வரும் குறில்கள் இரண்டு மாத்திரைகள் பெறும். """
+                if paa_type.lower() in _ISAI_PAA_NAMES and last_word and last_character:
+                    _nko_str += 'N'
+                else:
+                    _nko_str += 'K'
+            elif tc.is_otru():
+                " TODO: this check does not work in all cases "
+                if (paa_type.lower() == "sandhapa" or paa_type.lower() == "vannapa") and (not last_word) and \
+                  ((utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_MIDDLE,tc.text()) and middle_character) or  \
+                  (utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_END,tc.text()) and last_character)):
+                    _nko_str += ''
+                else:
+                    _nko_str += 'O'
             else:
-                self._nko_str += ''
-        return self._nko_str
+                _nko_str += ''
+            c += 1
+        return _nko_str
             
-    
+    def sandha_kuzhippu(self, paa_type = "Sandhapa", last_word=False,middle_word=False):
+        if (paa_type.lower() not in ['sandhapa','vannapa','sandhapaa','vannapaa','sandhappa','vannappa','sandhappaa','vannappaa'] and paa_type != None):
+            raise ValueError("Argument paa_type should be either 'Sandhapa' or 'Vannapa'")
+        nko = []
+        sandham_dict = []
+        if (paa_type.lower() == 'sandhapa'):
+            " TODO _get_nko_string should map to SANDJAPA_DICT as VN, VK etc"
+            nko = self._get_nko_string(paa_type, last_word,middle_word)
+            sandham_dict = utils.SANDHAPAA_DICT
+        elif (paa_type.lower() == 'vannapa'):
+            nko = self._get_nko_yinam_string(paa_type,last_word,middle_word)
+            sandham_dict = utils.VANNAPAA_DICT3
+        #print(self.text(),nko)
+        s = 0
+        _sandha_kuzhippu = ''
+        while s <= len(nko):
+            for i in range(len(sandham_dict),-1,-1):
+                k = len(list(sandham_dict[i-1].keys())[0])
+                key = nko[s:s+k]
+                if utils.list_has_element(sandham_dict[i-1].keys(),key):
+                    _sandha_kuzhippu += sandham_dict[i-1].get(key)#+separator
+                    #print('found',nko,_sandha_kuzhippu,s,key,sandham_dict[i-1].get(key))
+                    s = s + k - 1
+                    break
+                #print('not found',nko,_sandha_kuzhippu,s,key,sandham_dict[i-1].keys())
+            #print(nko,_sandha_kuzhippu,s,len(nko))
+            s = s + 1
+        #print(self.text(),nko,_sandha_kuzhippu)
+        if (s-1) != len(nko):
+            print(self.text(),nko,_sandha_kuzhippu,paa_type,last_word,s-1,len(nko))
+        return _sandha_kuzhippu
+        
+    def _vanna_kuzhippu_old(self, paa_type = "Vannapa"):
+        nko = self._get_nko_yinam_string(paa_type)
+        s = 0
+        k = 0
+        _vanna_kuzhippu = ''
+        while s <= len(nko):
+            for i in range(len(utils.VANNAPAA_DICT),-1,-1):
+                k = len(list(utils.VANNAPAA_DICT[i-1].keys())[0])# (i+1)*2+i # To account for two-char VK and + sign
+                key = nko[s:s+k]
+                if utils.list_has_element(utils.VANNAPAA_DICT[i-1].keys(),key):
+                    _vanna_kuzhippu += utils.VANNAPAA_DICT[i-1].get(key)#+separator
+                    s = s + k - 1
+                    break
+                else:
+                    pass
+            s = s + 1
+        return _vanna_kuzhippu
+    def sandha_duration(self, paa_type = "Sandhapa", last_word=False):
+        nko = self._get_nko_string(paa_type, last_word)
+        s = 0
+        k = 0
+        _sandha_duration = 0.0
+        while s <= len(nko):
+            for i in range(len(utils.SANDHA_PAA_DURATION),-1,-1):
+                k = len(list(utils.SANDHA_PAA_DURATION[i-1].keys())[0])
+                key = nko[s:s+k]
+                if utils.list_has_element(utils.SANDHA_PAA_DURATION[i-1].keys(),key):
+                    sd = utils.SANDHA_PAA_DURATION[i-1].get(key)
+                    _sandha_duration += sd
+                    s = s + k -1
+                    break
+            s = s + 1
+        #print(self.text(),nko,_sandha_duration)
+        return _sandha_duration
+
     def asaigaL(self, separator=SEPARATOR):
         if (self._asaigaL):
             return self._asaigaL
+        " TODO: Should we call getAsigal and _get_nko_string with poem_type and last_word as arguments like Java? "
         nko = self._get_nko_string()
         s = 0
         self._asaigaL = ''
         self._asai_word = ''
-        #print('len(nko)',len(nko))
         while s <= len(nko):
-            #print('s=',s)
             for i in range(len(utils.ASAI_DICT),0,-1):
                 key = nko[s:s+i]
-                #print('i=',i,key)
                 if len(nko) < (s+i):
-                    #print('len(nko) < (s+i) - continue')
                     continue
-                if key in utils.ASAI_DICT[i-1].keys():
+                if utils.list_has_element(utils.ASAI_DICT[i-1].keys(), key):
                     self._asaigaL += utils.ASAI_DICT[i-1].get(key)+separator
                     aw = ''.join(self.characters[s:s+i])
                     self._asai_word += aw + separator
-                    #print('asaiword',aw, self._asai_word)
-                    #print('self._asaigal',self._asaigaL)
                     s = s + i-1
                     break
             s = s + 1
@@ -348,12 +619,9 @@ class Sol(object):
         self._asai_word = asai_word
            
     def asai_word(self):
-        #print('self._asai_word before',self._asai_word)
         if self._asai_word:
             return self._asai_word
-        #print(' calling asaigal')
         self._asaigaL = self.asaigaL()
-        #print('self._asai_word after',self._asai_word)
         return self._asai_word
     
     def seer_type(self,separator=SEPARATOR):
@@ -362,7 +630,6 @@ class Sol(object):
         self._seer_count = self._asaigaL.count(separator)+1
         asai_str = self._asaigaL.replace(separator,' ')
         self._seer_type = utils.SEER_TYPES[self._seer_count-1].get(asai_str)
-        #print('seer_count',seer_count,'asai_str',asai_str,'self.seer_type',self._seer_type)
         return self._seer_type
     
     def venpaa_seer(self, separator=SEPARATOR):
@@ -417,11 +684,10 @@ class Sol(object):
         self._osai_type =  osai_arr.get(self._thaLai_type)
         return self._osai_type
 
-    " check whether thodai matches betwee two words. thodai index monai(=0), edhugai (=1), yiyaibu (=-1)"
+    " check whether thodai matches between two words. thodai index monai(=0), edhugai (=1), yiyaibu (=-1)"
     def thodai_matches(self, neighbor_word_text, thodai_index=0):
         word1 = self.tamil_char_objects
         word2 = Sol(neighbor_word_text).tamil_char_objects
-        """ TODO return FALSE if either are single letter words thodai_index <> 0 """
         if thodai_index != 0 and (len(word1) == 1 or len(word2) == 1):
             return False 
         thodai_char1 = word1[thodai_index]
@@ -430,7 +696,6 @@ class Sol(object):
         char2 = thodai_char2.text()
         if char1==char2: # if characters match exactly
             if thodai_index==0:
-                #print('monai exact match', char2)
                 return True # covered
             elif len(word1) > 1 and len(word2) > 1:
                 return ( word1[thodai_index-1].is_kuril() and word2[thodai_index-1].is_kuril() ) or \
@@ -439,15 +704,15 @@ class Sol(object):
                                ( word1[thodai_index-1].is_otru() and word2[thodai_index-1].is_otru() ) #:
         elif (thodai_index == -1): # Check if atleast morphnese are identical example "டே","ணே","தே","நே","னே"
             has_same_last_morpheme = (char1[-1]==char2[-1])
-            return has_same_last_morpheme
+            if (has_same_last_morpheme):
+                return True
         " Construct possible matching characters to thodai_char1 and check against thodai_char2"
         thodai_matches = char2 in utils.get_thodai_characters(char1, thodai_index)
-        #print(char1,'edhugai match', char2,thodai_matches)
         return thodai_matches
         
-    def sandha_seer(self):
+    def sandha_seer(self, separator=SEPARATOR):
         if not self._seer_type:
-            self.seer_type(separator=SEPARATOR)
+            self.seer_type(separator=separator)
         return [s for s in utils.SANDHA_SEERGAL if self._seer_type.endswith(s)][0]
             
 """
@@ -464,6 +729,7 @@ class Adi(object):
         self.seer_thodai_types = ['','','']
         self.words = []
         self.word_objects = []
+        self._sandha_ozhungu = []
         self._seer_monai_words = []
         self._seer_edhugai_words = []
         self._seer_yiyaibu_words = []
@@ -473,7 +739,6 @@ class Adi(object):
         self._seer_yiyaibu_words = self.seer_thodai_words(-1, '()')
         
     def set_text(self, sentence):
-        #print('sentence',sentence)
         end_of_line = '\n'
         if end_of_line in sentence:
             for line in sentence.splitlines() : self.set_text(line)
@@ -481,10 +746,8 @@ class Adi(object):
             self._text = sentence.translate(str.maketrans('', '', string.punctuation))
             blank = ' '
             self.words = self._text.strip().split(blank)
-            #print('Line Words',self.words)
             self._word_count = len(self.words)
             self.word_objects = [Sol(wrd) for wrd in self.words]        
-            #print('inside line',self._text)
     def text(self):
         return self._text
     
@@ -492,7 +755,6 @@ class Adi(object):
         return self._word_count
         
     def line_type(self):
-        #print('word count',self.word_count)
         if self.word_count() > 11:
             self._line_type = utils.LINE_TYPES[11]
         else:
@@ -500,9 +762,7 @@ class Adi(object):
         return self._line_type
     
     def sandha_ozhungu(self):
-        #self._sandha_ozhungu = ' '.join([wrd.sandha_seer() for wrd in self.word_objects])
         self._sandha_ozhungu = [wrd.sandha_seer() for wrd in self.word_objects]
-        #print(utils.most_common_frequencies(self._sandha_ozhungu))
         return self._sandha_ozhungu
 
     def seer_thodai_words(self, thodai_index,thodai_separator='()'):
@@ -522,7 +782,6 @@ class Adi(object):
         if (thodai_index == -1):
             end_char = ''
         thodai_word = utils.insert_string_at_index(word1_chars,thodai_separator,thodai_index)
-        #thodai_word = ''.join(word1_chars[:thodai_index])+thodai_separator[0]+word1_chars[thodai_index]+thodai_separator[1]+end_char
         thodai_words.append(thodai_word)
         thodai_counter = 1
         thodai_type = str(thodai_counter)
@@ -543,10 +802,8 @@ class Adi(object):
                 if (thodai_index == -1):
                     end_char = ''
                 thodai_word = utils.insert_string_at_index(word2_chars,thodai_separator,thodai_index)
-                #thodai_word = ''.join(word2_chars[:thodai_index])+thodai_separator[0]+word2_chars[thodai_index]+thodai_separator[1]+end_char
                 thodai_words.append(thodai_word)
             else:
-                #print(' no thodai',thodai_index,word2_text)
                 thodai_words.append(word2_text)
         thodai_type_pattern = 'இல்லை'
         if ('-' in thodai_type):
@@ -579,12 +836,9 @@ class Yiyarpa(object):
         text = text.translate(str.maketrans('', '', string.punctuation))
         text = text.replace('\r','')
         self._text = text
-        #print('self-text',self._text)
         self.lines = self._text.splitlines()
         self._line_count = len(self.lines)
-        #print('line count',self._line_count)
         self.line_objects = [Adi(line) for line in self.lines] 
-        #print('line objects',self.line_objects)
         
     def line_count(self):
         return self._line_count
@@ -640,7 +894,8 @@ class Yiyarpa(object):
         return self._osaigaL
 
     def adi_thodai_lines(self, thodai_index,thodai_separator='()'):
-        vikarpa_count = 0
+        " TODO get Vikarpa count here itself"
+        vikarpa_count = len(utils.VIKARPAM_LIST)-1
         wi = 0
         thodai_lines = ''
         thodai_line_prefix = 'அடி ' + utils.THODAI_TYPES[thodai_index]
@@ -683,16 +938,16 @@ class Yiyarpa(object):
 
     def thani_sorkaL(self):
         thani_sol_indices =[]
-        for l in range(self.line_count()-1): ##No thani sol on last line
+        for l in range(1, self.line_count()-1): ##No thani sol on first and last line
             line = self.line_objects[l]
+            previous_line = self.line_objects[l-1]
             word_count = line.word_count()
-            #print(line.text(),'word count',word_count)
-            word1 = line.word_objects[0]
+            word1 = previous_line.word_objects[0]
             word2 = line.word_objects[-1]
             if word_count==1:
                 thani_sol_indices.append((l,0,word2.text()))
                 continue
-            #print(word1.text(), word2.text())
+            """ TODO: previous line first word and current ast last word = tani sol edhugai """
             if word1.thodai_matches(word2.text(),thodai_index=1):
                 thani_sol_indices.append((l,word_count-1,word2.text()))
                 continue
@@ -702,18 +957,27 @@ class Yiyarpa(object):
         thodai_words = []
         for line in self.line_objects:
             line_seer_thodai = line.seer_thodai_words(thodai_index, thodai_separator)
-            #print(line_seer_thodai, line.seer_thodai_types[thodai_index])
             thodai_words.append(line_seer_thodai)
         
         return thodai_words
-        
+    
+    def has_sandha_ozhungu(self, required_percent_of_occurrence):
+        _sandha_ozhungu = self.line_objects[0].sandha_ozhungu()
+        _has_sandha_ozhungu, _actual_fraction = utils.has_required_percentage_of_occurrence(self.sandha_seergaL(),_sandha_ozhungu,required_percent_of_occurrence)
+        return _has_sandha_ozhungu, _sandha_ozhungu, _actual_fraction 
+    def has_sandha_kuzhipu(self,required_percent_of_occurrence):
+        _sandha_kuzhipu = self.sandha_kuzhippu()
+        _has_sandha_kuzhipu, _actual_fraction = utils.has_required_percentage_of_occurrence(_sandha_kuzhipu,_sandha_kuzhipu[0],required_percent_of_occurrence)
+        return _has_sandha_kuzhipu, _sandha_kuzhipu[0], _actual_fraction 
+    def thodai_check(self, thodai_index = 1):
+        _thodai_check = all(tp.line_objects[l].word_objects[0].thodai_matches(tp.line_objects[l].word_objects[0].text(),thodai_index = thodai_index) for l in range(tp.line_count()-1))
+        return _thodai_check    
 class Yaappu(Yiyarpa):    
     
-    def __init__(self, text, treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
+    def __init__(self, text,treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
         super().__init__(text)
         self.treat_aaydham_as_kuril(treat_aaydham_as_kuril)
         self.treat_kutriyaligaram_as_otru(treat_kutriyaligaram_as_otru)
-        #print(self.text())
         
     def treat_aaydham_as_kuril(self,b):
         utils._TREAT_AAYDHAM_AS_KURIL = b
@@ -721,7 +985,7 @@ class Yaappu(Yiyarpa):
     def treat_kutriyaligaram_as_otru(self, b):
         utils._TREAT_KUTRIYALIGARAM_AS_OTRU = b
             
-    def check_for_venpaa(self):
+    def check_for_venpaa(self,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -730,16 +994,22 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'வெண்பா'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_seer_fraction==None:
+            expected_seer_fraction = VENPA_SEER_FRACTION
+        if expected_thaLai_fraction==None:
+            expected_thaLai_fraction = VENPA_THALAI_FRACTION
+        if expected_osai_fraction==None:
+            expected_osai_fraction = VENPA_OSAI_FRACTION
         try:            
             rule_str = _VENPA_RULE_1
-            poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(True),utils.VENPA_ALLOWED_SEERS)
+            poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(check_eetrucheer_for_venpaa=True),utils.VENPA_ALLOWED_SEERS, expected_seer_fraction)
             paa_check = paa_check and poem_has_allowed_seers
-            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str + PERCENT_2.format(actual_fraction, expected_seer_fraction) +'\n'
             
             rule_str = _VENPA_RULE_2
-            poem_has_allowed_thaLai, actual_fraction = utils.has_required_percentage_of_occurrence(self.thaLaigaL(),['வெண்சீர் வெண்டளை', 'இயற்சீர் வெண்டளை'])
+            poem_has_allowed_thaLai, actual_fraction = utils.has_required_percentage_of_occurrence(self.thaLaigaL(),utils.VENPA_ALLOWED_THALAI, expected_thaLai_fraction)
             paa_check = paa_check and poem_has_allowed_thaLai
-            paa_str += RULE_CHECK(poem_has_allowed_thaLai) + rule_str +' (' + PERCENT.format(actual_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_thaLai) + rule_str + PERCENT_2.format(actual_fraction, expected_thaLai_fraction) +'\n'
             
             rule_str = _VENPA_RULE_3
             has_allowed_seer_count = self.line_objects[-1].word_count() == 3 and all( self.line_objects[l].word_count()==4 for l in range(self.line_count()-1) )
@@ -747,28 +1017,26 @@ class Yaappu(Yiyarpa):
             paa_str += RULE_CHECK(has_allowed_seer_count) + rule_str + '\n'
             
             rule_str = _VENPA_RULE_4
-            poem_has_allowed_osai, actual_fraction = utils.has_required_percentage_of_occurrence(self.osaigaL(),["தூங்கிசைச் செப்பலோசை","ஏந்திசைச் செப்பலோசை"])
+            poem_has_allowed_osai, actual_fraction = utils.has_required_percentage_of_occurrence(self.osaigaL(),["தூங்கிசைச் செப்பலோசை","ஏந்திசைச் செப்பலோசை"], expected_osai_fraction)
             paa_check = paa_check and poem_has_allowed_osai
-            paa_str +=  RULE_CHECK(poem_has_allowed_osai) + rule_str +' (' + PERCENT.format(actual_fraction) + ')'+ '\n'
+            paa_str +=  RULE_CHECK(poem_has_allowed_osai) + rule_str + PERCENT_2.format(actual_fraction, expected_osai_fraction) + '\n'
             
-            rule_str = _VENPA_RULE_5
+            rule_str = _VENPA_RULE_5 + " (" + self.word_objects()[-1].text() + ")"
             poem_has_allowed_eetru_seer = utils.list_has_element(utils.VENPA_EETRU_SEERS,self.word_objects()[-1].venpaa_seer())
             paa_check = paa_check and poem_has_allowed_eetru_seer
             paa_str += RULE_CHECK(poem_has_allowed_eetru_seer) + rule_str+ '\n'
             
             if paa_check:
-                #rule_str = _VENPA_KURAL_RULE_1
                 kural_check = self.line_count() == 2 and self.line_objects[0].word_count()==4 and self.line_objects[1].word_count() == 3
                 sindhiyal_check = self.line_count() == 3
-                pahorodai_check = self.line_count() > 4
-                #rule_str = _VENPA_NERISAI_RULE_1
+                pahorodai_check = self.line_count() > 4 and self.line_count() < 13
+                kalivenpa_check = self.line_count() > 12
                 word1_pos = self.line_objects[0].word_count() # second line first word
                 word2_pos =word1_pos + self.line_objects[1].word_count() - 1 # second line last word
                 word1_obj = self.word_objects()[word1_pos]
                 word2_txt = self.words()[word2_pos]
                 poem_has_secondline_edhugai_with_last_word = word1_obj.thodai_matches(word2_txt,thodai_index = 1) #thodai_index = 1 >> Edhugai
-                poem_has_secondline_edhugai_with_last_word
-                #paa_str +=  RULE_CHECK(poem_has_secondline_edhugai_with_last_word) + rule_str+ '\n'
+                poem_sub_type = ''
                 if kural_check:
                     poem_sub_type = 'குறள்'
                     paa_str += RULE_CHECK(kural_check) + _VENPA_KURAL_RULE_1 + '\n'
@@ -778,14 +1046,17 @@ class Yaappu(Yiyarpa):
                 elif pahorodai_check:
                     poem_sub_type = 'பஃறொடை'
                     paa_str += RULE_CHECK(pahorodai_check) + _VENPA_PAHRODAI_RULE_1 + '\n'
-                elif poem_has_secondline_edhugai_with_last_word :
-                    poem_sub_type = 'நேரிசை' 
-                    paa_str += RULE_CHECK(poem_has_secondline_edhugai_with_last_word) + _VENPA_NERISAI_RULE_1 + '\n'
-                else:
-                    poem_sub_type = 'இன்னிசை' 
-                    paa_str += RULE_CHECK(not poem_has_secondline_edhugai_with_last_word) + _VENPA_INNISAI_RULE_1 + '\n'
-                #poem_sub_type = 'நேரிசை' if poem_has_secondline_edhugai_with_last_word else 'இன்னிசை'
-                poem_type = poem_sub_type + ' ' + poem_type
+                elif pahorodai_check:
+                    poem_sub_type = 'கலி'
+                    paa_str += RULE_CHECK(pahorodai_check) + _VENPA_KALIVENPA_RULE_1 + '\n'
+                if self.line_count() > 2:
+                    if poem_has_secondline_edhugai_with_last_word :
+                        poem_sub_type = 'நேரிசை ' + poem_sub_type 
+                        paa_str += RULE_CHECK(poem_has_secondline_edhugai_with_last_word) + _VENPA_NERISAI_RULE_1 + " (" + word2_txt + ')\n'
+                    else:
+                        poem_sub_type = 'இன்னிசை ' + poem_sub_type 
+                        paa_str += RULE_CHECK(not poem_has_secondline_edhugai_with_last_word) + _VENPA_INNISAI_RULE_1 + '\n'
+                poem_type = poem_sub_type.strip() + ' ' + poem_type
                 
                 poem_sub_type = self.vikarpam()
                 poem_type = poem_sub_type + ' ' + poem_type
@@ -794,7 +1065,7 @@ class Yaappu(Yiyarpa):
         except:
             return [False, poem_type, paa_str]
         
-    def check_for_asiriyapaa(self):
+    def check_for_asiriyapaa(self,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -803,36 +1074,41 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'ஆசிரியப்பா'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_seer_fraction==None:
+            expected_seer_fraction = ASIRIYAPA_SEER_FRACTION
+        if expected_thaLai_fraction==None:
+            expected_thaLai_fraction = ASIRIYAPA_THALAI_FRACTION
+        if expected_osai_fraction==None:
+            expected_osai_fraction = ASIRIYAPA_OSAI_FRACTION
         try:
             rule_str = _ASIRIYAPA_RULE_1
-            expected_fraction = ASIRIYAPA_RULE_FRACTION
+            expected_fraction = expected_seer_fraction
             poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(True),utils.ASIRIYAPPA_ALLOWED_SEERS,expected_fraction)
             paa_check = paa_check and poem_has_allowed_seers
-            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
             
             rule_str = _ASIRIYAPA_RULE_2
             poem_has_disallowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(),utils.ASIRIYAPPA_DISALLOWED_SEERS)
             paa_check = paa_check and not poem_has_disallowed_seers
-            paa_str += RULE_CHECK(not poem_has_disallowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + ')' +'\n'
-    
-            rule_str = _ASIRIYAPA_RULE_3
+            paa_str += RULE_CHECK(not poem_has_disallowed_seers) + rule_str + PERCENT_2.format(actual_fraction, 0.0) +'\n'
+            
+            rule_str = _ASIRIYAPA_RULE_3 + " (" + self.words()[-1] + ")"
             lastChar = self.words()[-1][-1]
-            #print('lastchar',lastChar)
             poem_has_allowed_ending = utils.list_has_element(utils.ASIRIYAPPA_EETRUCHEER_LETTERS,lastChar)
             paa_check = paa_check and poem_has_allowed_ending
             paa_str += RULE_CHECK(poem_has_allowed_ending) + rule_str +'\n'
     
             rule_str = _ASIRIYAPA_RULE_4
-            expected_fraction = ASIRIYAPA_RULE_FRACTION
+            expected_fraction = expected_thaLai_fraction
             poem_has_allowed_thaLaigaL, actual_fraction = utils.has_required_percentage_of_occurrence(self.thaLaigaL(),["நேரொன்றிய ஆசிரியத்தளை","நிரையொன்றிய ஆசிரியத்தளை"],expected_fraction)
             paa_check = paa_check and poem_has_allowed_thaLaigaL
-            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _ASIRIYAPA_RULE_5
-            expected_fraction = ASIRIYAPA_RULE_FRACTION
+            expected_fraction = expected_osai_fraction
             poem_has_allowed_osai, actual_fraction = utils.has_required_percentage_of_occurrence(self.osaigaL(),["ஏந்திசை அகவலோசை","தூங்கிசை அகவலோசை"],expected_fraction)
             paa_check = paa_check and poem_has_allowed_osai
-            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _ASIRIYAPA_RULE_6
             has_allowed_seer_count = all(self.line_objects[l].word_count()<=4 for l in range(self.line_count()))       
@@ -856,7 +1132,7 @@ class Yaappu(Yiyarpa):
         except:
             return [False, poem_type, paa_str]
         
-    def check_for_kalipaa(self):
+    def check_for_kalipaa(self,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -865,29 +1141,37 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'கலிப்பா'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_seer_fraction==None:
+            expected_seer_fraction = KALIPA_SEER_FRACTION
+        if expected_thaLai_fraction==None:
+            expected_thaLai_fraction = KALIPA_THALAI_FRACTION
+        if expected_osai_fraction==None:
+            expected_osai_fraction = KALIPA_OSAI_FRACTION
         try:
             rule_str = _KALIPA_RULE_1
-            expected_fraction = KALIPA_RULE_FRACTION
+            expected_fraction = expected_seer_fraction
             poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(True),utils.KALIPPA_ALLOWED_SEERS,expected_fraction)
             paa_check = paa_check and poem_has_allowed_seers
-            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
             
             rule_str = _KALIPA_RULE_2
             poem_has_disallowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(),utils.KALIPPA_DISALLOWED_SEERS)
             paa_check = paa_check and not poem_has_disallowed_seers
-            paa_str += RULE_CHECK(not poem_has_disallowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(not poem_has_disallowed_seers) + rule_str + PERCENT_2.format(actual_fraction, 0.0) +'\n'
     
             rule_str = _KALIPA_RULE_3
-            expected_fraction = KALIPA_RULE_FRACTION
+            expected_fraction = expected_thaLai_fraction
             poem_has_allowed_thaLaigaL, actual_fraction = utils.has_required_percentage_of_occurrence(self.thaLaigaL(),["கலித்தளை"],expected_fraction)
-            paa_check = paa_check and poem_has_allowed_thaLaigaL
-            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            """ Due to rule #2 this check is commented """
+            #paa_check = paa_check and poem_has_allowed_thaLaigaL
+            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _KALIPA_RULE_4
-            expected_fraction = KALIPA_RULE_FRACTION
+            expected_fraction = expected_osai_fraction
             poem_has_allowed_osai, actual_fraction = utils.has_required_percentage_of_occurrence(self.osaigaL(),["ஏந்திசைத் துள்ளலோசை"],expected_fraction)
-            paa_check = paa_check and poem_has_allowed_osai
-            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            """ Due to rule #2 this check is commented """
+            #paa_check = paa_check and poem_has_allowed_osai
+            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _KALIPA_RULE_5
             has_allowed_seer_count = all(self.line_objects[l].word_count()==4 for l in range(self.line_count()-1))       
@@ -904,7 +1188,7 @@ class Yaappu(Yiyarpa):
         except:
             return [False, poem_type, paa_str]
         
-    def check_for_vanjipaa(self):
+    def check_for_vanjipaa(self,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -913,31 +1197,37 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'வஞ்சிப்பா'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_seer_fraction==None:
+            expected_seer_fraction = VANJIPA_SEER_FRACTION
+        if expected_thaLai_fraction==None:
+            expected_thaLai_fraction = VANJIPA_THALAI_FRACTION
+        if expected_osai_fraction==None:
+            expected_osai_fraction = VANJIPA_OSAI_FRACTION
         try:
             rule_str = _VANJIPA_RULE_1
-            expected_fraction = VANJIPA_RULE_FRACTION
+            expected_fraction = expected_seer_fraction
             poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(self.seergaL(),utils.VANJPA_ALLOWED_SEERS,expected_fraction)
             paa_check = paa_check and poem_has_allowed_seers
-            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
             
-            rule_str = _VANJIPA_RULE_2
-            expected_fraction = VANJIPA_RULE_FRACTION
+            rule_str = _VANJIPA_RULE_2  + " (" + self.thani_sorkaL()[-1][-1] + ")"
+            expected_fraction = expected_seer_fraction
             thani_seers = [Sol(thani[2]).seer_type() for thani in self.thani_sorkaL() ]
             poem_has_allowed_seers, actual_fraction = utils.has_required_percentage_of_occurrence(thani_seers,utils.VANJPA_THANISOL_ALLOWED_SEERS,expected_fraction)
             paa_check = paa_check and poem_has_allowed_seers
-            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_seers) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
             
             rule_str = _VANJIPA_RULE_3
-            expected_fraction = VANJIPA_RULE_FRACTION
+            expected_fraction = expected_thaLai_fraction
             poem_has_allowed_thaLaigaL, actual_fraction = utils.has_required_percentage_of_occurrence(self.thaLaigaL(),["ஒன்றிய வஞ்சித்தளை","ஒன்றா வஞ்சித்தளை"],expected_fraction)
             paa_check = paa_check and poem_has_allowed_thaLaigaL
-            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_thaLaigaL) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _VANJIPA_RULE_4
-            expected_fraction = VANJIPA_RULE_FRACTION
+            expected_fraction = expected_osai_fraction
             poem_has_allowed_osai, actual_fraction = utils.has_required_percentage_of_occurrence(self.osaigaL(),["ஏந்திசைத் தூங்கலோசை","அகவல் தூங்கலோசை"],expected_fraction)
             paa_check = paa_check and poem_has_allowed_osai
-            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str +' (' + PERCENT.format(actual_fraction) + GEQ + PERCENT.format(expected_fraction) + ')' +'\n'
+            paa_str += RULE_CHECK(poem_has_allowed_osai) + rule_str + PERCENT_2.format(actual_fraction, expected_fraction) +'\n'
     
             rule_str = _VANJIPA_RULE_5
             thani_line = self.thani_sorkaL()[-1][0]
@@ -979,18 +1269,15 @@ class Yaappu(Yiyarpa):
             kuRaL_thaazhisai_check = self.line_count() == 2 and self.line_objects[0].word_count() >= 4 and self.line_objects[1].word_count() < self.line_objects[0].word_count()
             kuRal_thuRai_check = self.line_count() == 2 and self.line_objects[0].word_count() == self.line_objects[1].word_count()
             ven_thaazhisai_check = self.line_count() == 3 and self.line_objects[0].word_count() == 4 and self.line_objects[1].word_count() == 4 and self.line_objects[2].word_count() ==3
-            #thani_check = all(thani[0]==l for l in range(self.line_count() for thani in thani_sol))
             thani_check = all(self.line_objects[0].words[-1] == self.line_objects[l].words[-1] for l in range(self.line_count()))
-            #print('thani_check',thani_check,self.line_objects[0].words[-1],self.line_objects[-1].words[-1])
             ven_thurai_check = self.line_count() >= 3 and  self.line_count()<=7 and (self.line_objects[-1].word_count() < self.line_objects[0].word_count())
             veLi_virutham_check = self.line_count() == 3 or self.line_count() ==4 and thani_check
-            #print('kuRaL_thaazhisai_check',kuRaL_thaazhisai_check,'kuRal_thuRai_check',kuRal_thuRai_check,'ven_thaazhisai_check',ven_thaazhisai_check,'ven_thurai_check',ven_thurai_check,'veLi_virutham_check',veLi_virutham_check)
             poem_sub_type = ''
             paa_str += RULE_CHECK(kuRaL_thaazhisai_check) + _VENPAVINAM_KURAL_THAZHISAI + '\n'
             paa_str += RULE_CHECK(kuRal_thuRai_check) + _VENPAVINAM_KURAL_THURAI + '\n'
             paa_str += RULE_CHECK(ven_thaazhisai_check) + _VENPAVINAM_VEN_THAZHISAI + '\n'
             paa_str += RULE_CHECK(ven_thurai_check) + _VENPAVINAM_VEN_THURAI  + '\n'
-            paa_str += RULE_CHECK(veLi_virutham_check) + _VENPAVINAM_VELI_VIRUTHAM + '\n'
+            paa_str += RULE_CHECK(veLi_virutham_check) + _VENPAVINAM_VELI_VIRUTHAM + " (" + self.line_objects[0].words[-1] + ')\n'
             paa_check = paa_check and (kuRaL_thaazhisai_check or kuRal_thuRai_check or ven_thaazhisai_check or ven_thurai_check or veLi_virutham_check)
             if kuRaL_thaazhisai_check:
                 poem_sub_type = 'குறள்  தாழிசை' 
@@ -1007,7 +1294,7 @@ class Yaappu(Yiyarpa):
         except:
             return [False, poem_type, paa_str]
                 
-    def check_for_asiriyapaavinam(self):
+    def check_for_asiriyapaavinam(self, expected_sandha_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -1016,6 +1303,8 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'ஆசிரியப்பாவினம்'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_sandha_fraction==None:
+            expected_sandha_fraction = ASIRIYAPA_SANDHA_FRACTION
         try:
             word_count = self.line_objects[-1].word_count()
             thazhisai_check = self.line_count() == 3 and all(self.line_objects[l].word_count() == word_count for l in range(self.line_count()-1))
@@ -1027,27 +1316,33 @@ class Yaappu(Yiyarpa):
                                             ( self.line_objects[1].words[1] == self.line_objects[2].words[1])
             virutham_check = self.line_count() == 4 and word_count > 5 and \
                             all(self.line_objects[l].word_count() == word_count for l in range(self.line_count()-1))
-            sandha_ozhungu = self.line_objects[0].sandha_ozhungu()
-            has_sandha_ozhungu, actual_fraction = utils.has_required_percentage_of_occurrence(self.sandha_seergaL(),sandha_ozhungu,ASIRIYAPA_SANDHA_OZHUNGU_FRACTION)
-            #has_sandha_ozhungu = all(self.line_objects[l].sandha_ozhungu() == sandha_ozhungu for l in range(self.line_count()))
+            has_sandha_ozhungu, sandha_ozhungu, actual_fraction = self.has_sandha_ozhungu(expected_sandha_fraction)
+            edhugai_check = all(self.line_objects[l].word_objects[0].thodai_matches(self.line_objects[l].word_objects[0].text(),thodai_index = 1) for l in range(self.line_count()-1))
+            #edhugai_check = self.thodai_check(thodai_index=1)
+            #print('edhugai_check',edhugai_check)
             virutham_check = virutham_check and has_sandha_ozhungu
             paa_check = paa_check and (thazhisai_check or thuRai_check or virutham_check)
             paa_str += RULE_CHECK(thazhisai_check) + _ASIRIYAPA_THAZHISAI + '\n'
             paa_str += RULE_CHECK(thuRai_check) + _ASIRIYAPA_THURAI + '\n'
-            paa_str += RULE_CHECK(virutham_check) + _ASIRIYAPA_VIRUTHAM + '(' + ' '.join(sandha_ozhungu) + ') (' + PERCENT.format(actual_fraction) + ')'+ '\n'
+            paa_str += RULE_CHECK(virutham_check) + _ASIRIYAPA_VIRUTHAM + '(' + ' '.join(sandha_ozhungu) + ')' + PERCENT_2.format(actual_fraction, expected_sandha_fraction) +'\n'
             poem_sub_type = ''
             if thazhisai_check:
                 poem_sub_type = "ஆசிரியத் தாழிசை" 
             elif thuRai_check:
                 poem_sub_type = "ஆசிரியத் துறை" 
-            elif virutham_check:
+            elif virutham_check and edhugai_check:
                 poem_sub_type = "ஆசிரிய/வெளி விருத்தம்" 
+                t1 = ["அறுசீர்", "எழுசீர்", "எண்சீர்"]
+                t2 = [6,7,8]
+                word_count = self.line_objects[0].word_count()
+                poem_sub_type = t1[t2.index(word_count)] + " "+poem_sub_type
+
             poem_type = poem_sub_type + ' ' + poem_type
             return [paa_check, poem_type, paa_str]
         except:
             return [False, poem_type, paa_str]
         
-    def check_for_kalipaavinam(self):
+    def check_for_kalipaavinam(self, expected_sandha_fraction=None):
         """
         return arguments - tuple
         poem type True or False
@@ -1056,6 +1351,8 @@ class Yaappu(Yiyarpa):
         paa_check = True
         poem_type = 'கலிப்பாவினம்'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
+        if expected_sandha_fraction==None:
+            expected_sandha_fraction = KALIPA_SANDHA_FRACTION
         try:
             word_count = self.line_objects[-1].word_count()
             thazhisai_check = self.line_count() >=2  and all(self.line_objects[l].word_count() < word_count for l in range(self.line_count()-1))
@@ -1067,13 +1364,12 @@ class Yaappu(Yiyarpa):
             kattaLai_check = kattaLai_check and poem_has_allowed_thaLai and eetru_seer_check
             virutham_check = self.line_count() == 4 and word_count == 4 and \
                             all(self.line_objects[l].word_count() == word_count for l in range(self.line_count()-1))
-            sandha_ozhungu = self.line_objects[0].sandha_ozhungu()
-            has_sandha_ozhungu, virutham_fraction = utils.has_required_percentage_of_occurrence(self.sandha_seergaL(),sandha_ozhungu,KALIPA_SANDHA_OZHUNGU_FRACTION)
-            #has_sandha_ozhungu = all(self.line_objects[l].sandha_ozhungu() == sandha_ozhungu for l in range(self.line_count()))
+            has_sandha_ozhungu, sandha_ozhungu, virutham_fraction = self.has_sandha_ozhungu(expected_sandha_fraction)
+            edhugai_check = all(self.line_objects[l].word_objects[0].thodai_matches(self.line_objects[l].word_objects[0].text(),thodai_index = 1) for l in range(self.line_count()-1))
             virutham_check = virutham_check and has_sandha_ozhungu
             paa_check = paa_check and (thazhisai_check or thuRai_check or kattaLai_check or virutham_check)
             paa_str += RULE_CHECK(thazhisai_check) + _KALIPA_THAZHISAI + '\n'
-            paa_str += RULE_CHECK(kattaLai_check) + _KALIPA_KATTALAI_THURAI + ' (' + PERCENT.format(kattaLai_fraction) + ')'+ '\n'
+            paa_str += RULE_CHECK(kattaLai_check) + _KALIPA_KATTALAI_THURAI + ')' + PERCENT_2.format(virutham_fraction, expected_sandha_fraction) + '\n'
             paa_str += RULE_CHECK(thuRai_check) + _KALIPA_KALI_THURAI + '\n'
             paa_str += RULE_CHECK(virutham_check) + _KALIPA_VIRUTHAM + '(' + ' '.join(sandha_ozhungu) + ') (' + PERCENT.format(virutham_fraction) + ')'+ '\n'
             poem_sub_type = ''
@@ -1083,9 +1379,10 @@ class Yaappu(Yiyarpa):
                 poem_sub_type = "கட்டளைக் கலித்துறை" 
             elif thuRai_check:
                 poem_sub_type = "கலித்துறை" 
-            elif virutham_check:
+            elif virutham_check and edhugai_check:
                 poem_sub_type = "கலி விருத்தம்"
             poem_type = poem_sub_type + ' ' + poem_type
+            #print("கலி விருத்தம் - check\n",'paa_check',paa_check,'virutham_check',virutham_check,'edhugai_check',edhugai_check)
             return [paa_check, poem_type, paa_str]
         except:
             return [False, poem_type, paa_str]
@@ -1100,7 +1397,6 @@ class Yaappu(Yiyarpa):
         poem_type = 'வஞ்சிப்பாவினம்'
         paa_str = poem_type + " யாப்பிலக்கண விதிகள்" + '\n'
         try:
-            word_count = self.line_objects[-1].word_count()
             thazhisai_check = self.line_count() > 4 and self.line_count() % 4 ==0 and all(self.line_objects[l].word_count() == 2 for l in range(self.line_count()))
             thuRai_check = self.line_count() == 4 and all(self.line_objects[l].word_count() == 2 for l in range(self.line_count()))
             virutham_check = self.line_count() == 4 and all(self.line_objects[l].word_count() == 3 for l in range(self.line_count()))
@@ -1120,11 +1416,11 @@ class Yaappu(Yiyarpa):
         except:
             return [False, poem_type, paa_str]
         
-    def analyze(self,poem_type=None,get_individual_poem_analysis=False):
+    def analyze(self,poem_type=None,get_individual_poem_analysis=False,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):
         """
         arguments:
             poem_type: integer 1 to 8, 1= VENPA and 5=VENPAVINAM and 8 - VANJIPAVINAM
-                if None - all poem text will be analyzed for all poem types and sub types
+                if None - poem text will be analyzed for all poem types and sub types
             get_individual_poem_analysis: True or False (default)
                 True: will return poem analysis for all poem types until matching poem type is found
         return:
@@ -1137,72 +1433,72 @@ class Yaappu(Yiyarpa):
         for poem_type_enum in utils.POEM_TYPES:
             #print(poem_type,poem_type_enum,not result[0],poem_type==None, poem_type==poem_type_enum)
             if not result[0] and (poem_type==None or poem_type==poem_type_enum or get_individual_poem_analysis):
-                #print(poem_type_enum,POEM_CHECK_FUNCTIONS.get(poem_type_enum))
-                result = getattr(self,utils.POEM_CHECK_FUNCTIONS.get(poem_type_enum))()
+                if poem_type_enum <= 4:
+                    result = getattr(self,utils.POEM_CHECK_FUNCTIONS.get(poem_type_enum))(expected_seer_fraction,expected_thaLai_fraction,expected_osai_fraction)
+                else:
+                    result = getattr(self,utils.POEM_CHECK_FUNCTIONS.get(poem_type_enum))()
                 if get_individual_poem_analysis:
                     poem_analysis += result[2]
+            #if result[0]:
+            #    return result, poem_analysis
         return result, poem_analysis    
     
-    def _analyze_thirukural(self):
-        kuralgal = open('thirukural.txt', "r", encoding="utf-8").readlines()
-        outFile = open('output.txt', "w", encoding="utf-8")
-        start_kural_id = 0
-        end_kural_id = start_kural_id + 10
-        id = start_kural_id
-        kural_types = []
-        venpaavinam_kuralgal = []
-        kuralgal_with_incompatible_seer_count = []
-        TREAT_AAYDHAM_AS_KURIL_KURALGAL = [226, 363, 414, 943, 1166]
-        TREAT_KUTRIYALIGARAM_AS_OTRU_KURALGAL = [178, 254, 291, 324, 541, 585, 801, 831, 844, 895, 1041]
-        for kural in kuralgal:#[start_kural_id:end_kural_id]:
-            id += 1
-            kural = kural.replace('$','\n')
-            if id in TREAT_AAYDHAM_AS_KURIL_KURALGAL:
-                ty = Yaappu(kural,treat_aaydham_as_kuril=True)
-            elif id in TREAT_KUTRIYALIGARAM_AS_OTRU_KURALGAL:
-                ty = Yaappu(kural,treat_kutriyaligaram_as_otru=True)
-            else:
-                ty = Yaappu(kural)
-                #utils._TREAT_AAYDHAM_AS_KURIL = False
-            paa_check,poem_analysis = ty.analyze()#utils.POEM_TYPES.VENPA,get_individual_poem_analysis=False)
-            print('============================================')
-            print(id,kural)
-            outFile.write('\n'+str(id)+' '+kural)
-            kural_types.append(paa_check[1])
-            print('POEM Results:',paa_check[1] + RULE_CHECK(paa_check[0]))
-            outFile.write(paa_check[1])
-            if 'வெண்பாவினம்' in paa_check[1]:
-                venpaavinam_kuralgal.append(id)
-                if ty.line_objects[0].word_count() != 4 or ty.line_objects[1].word_count() != 3:
-                    kuralgal_with_incompatible_seer_count.append(id)
-            #print('POEM Results:',paa_check[2])
-        outFile.close()
-        print(utils.frequency_of_occurrence(kural_types))
-        print(venpaavinam_kuralgal)
-        print('kuralgal_with_incompatible_seer_count',kuralgal_with_incompatible_seer_count)
+def _analyze_thirukural():
+    kuralgal = open('thirukural.txt', "r", encoding="utf-8").readlines()
+    outFile = open('output.txt', "w", encoding="utf-8")
+    start_kural_id = 0
+    #end_kural_id = start_kural_id + 10
+    kural_id = start_kural_id
+    kural_types = []
+    venpaavinam_kuralgal = []
+    kuralgal_with_incompatible_seer_count = []
+    TREAT_AAYDHAM_AS_KURIL_KURALGAL = [226, 363, 414, 943, 1166]
+    TREAT_KUTRIYALIGARAM_AS_OTRU_KURALGAL = [178, 254, 291, 324, 541, 585, 801, 831, 844, 895, 1041]
+    for kural in kuralgal:#[start_kural_id:end_kural_id]:
+        kural_id += 1
+        kural = kural.replace('$','\n')
+        if kural_id in TREAT_AAYDHAM_AS_KURIL_KURALGAL:
+            ty = Yaappu(kural,treat_aaydham_as_kuril=True)
+        elif kural_id in TREAT_KUTRIYALIGARAM_AS_OTRU_KURALGAL:
+            ty = Yaappu(kural,treat_kutriyaligaram_as_otru=True)
+        else:
+            ty = Yaappu(kural)
+            #utils._TREAT_AAYDHAM_AS_KURIL = False
+        paa_check,_ = ty.analyze(utils.POEM_TYPES.VENPA)#utils.POEM_TYPES.VENPA,get_individual_poem_analysis=False)
+        print('============================================')
+        print(kural_id,kural)
+        outFile.write('\n'+str(kural_id)+' '+kural)
+        kural_types.append(paa_check[1])
+        print('POEM Results:',paa_check[1] + RULE_CHECK(paa_check[0]))
+        outFile.write(paa_check[1])
+        if 'வெண்பாவினம்' in paa_check[1]:
+            venpaavinam_kuralgal.append(kural_id)
+            if ty.line_objects[0].word_count() != 4 or ty.line_objects[1].word_count() != 3:
+                kuralgal_with_incompatible_seer_count.append(kural_id)
+    outFile.close()
+    print(utils.frequency_of_occurrence(kural_types))
+    print(venpaavinam_kuralgal)
+    print('kuralgal_with_incompatible_seer_count',kuralgal_with_incompatible_seer_count)
             
 if __name__ == '__main__':
-    tp = Yiyarpa("இருவினையின் மதிமயங்கித் திரியாதே\n"+
-"எழுநரகி லுழலுநெஞ்சத் தலையாலே\n"+
-"பரமகுரு வருணினைந்திட் டுணர்வாலே\n"+
-"கரவுதரி சனையையென்றற் கருள்வாயே\n"+
-"தெரிதமிழை யுதவுசங்கப் புலவோனே\n"+
-"சிவனருளு முருகசெம்பொற் கழலோனே\n"+
-"கருணைநெறி புரியுமன்பர்க் கெளியோனே\n"+
-"கனகசபை மருவுகந்தப் பெருமாளே!")
-    #print(tp.text())
-    for line in tp.line_objects:
-        nko_str = ''
-        for word in line.word_objects:
-            nko_str += Sol(word.text())._get_nko_string()+' '
-        print(line.text(),'\n', line.sandha_ozhungu(),nko_str)
+    """
+    last_word = False
+    middle_word = True
+    poem_type = "vannapa"
+    print(word._get_nko_yinam_string(poem_type, last_word=last_word, middle_word=middle_word))
+    print(word.asai_word(),word.asaigaL())
+    print(word.sandha_duration(paa_type=poem_type,last_word=last_word))
+    print(word.sandha_kuzhippu(poem_type, last_word=last_word, middle_word=middle_word))
     exit()
-    #"""
-    kural = "அணியன்றோ நாணுடைமை சான்றோர்க்கஃ தின்றேல்\nபிணியன்றோ பீடு நடை"
-    #utils._TREAT_AAYDHAM_AS_KURIL = True
-    print(kural)
-    ty = Yaappu(kural)
-    paa_check,poem_analysis = ty.analyze(utils.POEM_TYPES.VENPA)#VINAM)
+    """
+    """
+    file = 'test_input/Kalipaavinam_KattaLaiThuRai.txt'
+    poem = open(file, "r", encoding="utf-8").read()
+    ty = Yaappu(poem)
+    paa_check,poem_analysis = ty.analyze(get_individual_poem_analysis=True)
+    print(poem_analysis)
+    print('============================================')
+    print(poem)
     print('POEM Results:',paa_check[1] + RULE_CHECK(paa_check[0]))
     print('POEM Results:',paa_check[2])
     print(ty.thaLaigaL())
@@ -1210,36 +1506,21 @@ if __name__ == '__main__':
     print(ty.asaigaL())
     print(ty.asai_words())
     exit()
+    """
     #"""
-    _analyze_thirukural()
+    tp = Yaappu("வையக மெல்லாங் கழினியா வையகத்துட்\n"+\
+"செய்யகமே நாற்றிசையின் றேயங்கள் செய்யகத்துள்\n"+\
+"வான்கரும்பே தொண்டை வளநாடு வான்கரும்பின்\n"+\
+"சாறேயந் நாட்டிற் றிலையூர்கள் சாறட்ட\n"+\
+"கட்டியே கச்சிப் புறமெல்லாங்க் கட்டியுட்\n"+\
+"டானேற்ற மான சருக்கரை மாமணியே\n"+\
+"ஆணேற்றான் கச்சி யகம்")
+    paa_check, _ = tp.analyze()
+    for line in paa_check:
+        print(line)
     exit()
     #"""
-    wrd = Sol('நுந்தை')
-    print(wrd.text(),wrd.tamil_char_objects[0].is_magarakurukkam(),wrd.tamil_char_objects[0].duration())
-    print('total duration',wrd.duration())
-    exit()
-    file = 'input/Kalipaavinam_KattaLaiThuRai.txt'
-    poem = open(file, "r", encoding="utf-8").read()
-    ty = Yaappu(poem)
-    paa_check,poem_analysis = ty.analyze(utils.POEM_TYPES.KALIPAVINAM,get_individual_poem_analysis=False)
-    print(poem_analysis)
-    print('============================================')
-    print(poem)
-    print('POEM Results:',paa_check[1] + RULE_CHECK(paa_check[0]))
-    print('POEM Results:',paa_check[2])
-    exit()
-    tp = Yiyarpa("தனந்தரும் கல்வி தருமொரு நாளும் தளர்வறியா\n"+\
-"மனந்தரும் தெய்வ வடிவும் தரும்நெஞ்சில் வஞ்சமில்லா\n"+ \
-"இனந்தரும் நல்லன எல்லாம் தருமன்பர் என்பவர்க்கே\n" + \
-"கனந்தரும் பூங்குழ லாளபி ராமி கடைக்கண்களே")
-    len_arr = [line.word_count() for line in tp.line_objects]
-    thodai_type_2d = []
-    for t in [0,1,-1]:
-        print('todai_index = ', t)
-        thodai_type_2d.append(tp.seer_thodai_words(t))
-        for l in range(tp.line_count()):
-            print(thodai_type_2d[t][l], tp.line_objects[l].seer_thodai_types[t])
-    #exit()
+    #"""
     len_arr = [line.word_count() for line in tp.line_objects]     
     words_2d = (utils.convert_1d_list_to_2d(tp.words(),len_arr))
     asai_words_2d = (utils.convert_1d_list_to_2d(tp.asai_words(),len_arr))
@@ -1262,3 +1543,4 @@ if __name__ == '__main__':
     for t in [0,1,-1]:
         #print('adi todai_index = ', t)
         print(tp.adi_thodai_lines(t,'<>'))
+    #"""

@@ -979,10 +979,10 @@ class Yaappu(Yiyarpa):
         self.treat_aaydham_as_kuril(treat_aaydham_as_kuril)
         self.treat_kutriyaligaram_as_otru(treat_kutriyaligaram_as_otru)
         
-    def treat_aaydham_as_kuril(self,b):
+    def treat_aaydham_as_kuril(self,b:bool):
         utils._TREAT_AAYDHAM_AS_KURIL = b
 
-    def treat_kutriyaligaram_as_otru(self, b):
+    def treat_kutriyaligaram_as_otru(self, b:bool):
         utils._TREAT_KUTRIYALIGARAM_AS_OTRU = b
             
     def check_for_venpaa(self,expected_seer_fraction=None,expected_thaLai_fraction=None,expected_osai_fraction=None):

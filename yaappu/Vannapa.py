@@ -1,5 +1,5 @@
 # coding=utf8
-from yaappu.grammar import Ezhuthu, Sol, Adi,Yiyarpa
+from yaappu.grammar import Ezhuthu, Sol, Adi,Yaappu
 from yaappu import utils
 import string
 """ Vannappa Rules """
@@ -18,12 +18,12 @@ GEQ = u' \u2265 '
 RULE_CHECK = lambda rc : '\t' + GREEN_CHECK if rc else '\t' + RED_CROSS
 PERCENT = "{:.0%}"
 PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%} )"
-class Vannapa(Yiyarpa):
+class Vannapa(Yaappu):
     " TODO: Vannappa/Sandhappa is_aikaaram should be treated as KuRil ALSO for edhugai/monai"
     def __init__(self, text, poem_check_fraction = 0.9): #, treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
         super().__init__(text)
         self.poem_check_fraction = poem_check_fraction
-        self.kalaiCount = 0
+        self.kalaiCount = 1
         self.thuLLalCount = 0
         self.kalai_monai_words = ""
         self.adi_edhugai_words = ""
@@ -33,14 +33,18 @@ class Vannapa(Yiyarpa):
         first_line_sandha_kuzhippu = self.sandha_kuzhippu()[0:self.line_objects[0].word_count()]
         last_word_index = len(first_line_sandha_kuzhippu)-1
         " Get kalai count "
-        kalaiCount = 0
+        kalaiCount = 1
         for k in range(5,0,-1):
             div = int((last_word_index+1)/k)
+            #print('k=',k,'div=',div)
+            if div == 0 or div > last_word_index:
+                continue
             if ( (div*k==last_word_index+1) and 
                     (first_line_sandha_kuzhippu[0]==(first_line_sandha_kuzhippu[div]) )):
                 kalaiCount = k
                 #print("last_word_index "+str(last_word_index+1)+" div"+str(div)+" Found kalaiCount="+str(kalaiCount)+"=>"+first_line_sandha_kuzhippu[div])
                 break
+        #print('kalaiCount',kalaiCount)
         return kalaiCount
     def sandha_kuzhippu(self):
         _sandha_kuzhippu_list = []
@@ -100,6 +104,8 @@ class Vannapa(Yiyarpa):
                     self.adi_edhugai_words += "["+kalai_word1_new+","+kalai_word2_new+"] ";                    
         return edhugai_check
     def has_kalai_monai(self):
+        if self.kalaiCount <= 1:
+            return False
         monai_check = True
         self.kalai_monai_words = ""
         lineCount = self.line_count()

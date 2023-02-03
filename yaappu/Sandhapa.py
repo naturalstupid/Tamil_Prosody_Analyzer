@@ -1,5 +1,5 @@
 # coding=utf8
-from yaappu.grammar import Yiyarpa, Yaappu
+from yaappu.grammar import Yaappu
 from yaappu import utils
 """ Sandhapaa Rules """
 _SANDHAPA_RULE_1 = "எல்லா அடிகளிலும் மாத்திரை அளவு ஒன்றாக இருக்க வேண்டும்\n"+ \
@@ -16,7 +16,7 @@ GEQ = u' \u2265 '
 RULE_CHECK = lambda rc : '\t' + GREEN_CHECK if rc else '\t' + RED_CROSS
 PERCENT = "{:.0%}"
 PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%} )"
-class Sandhapa(Yiyarpa):
+class Sandhapa(Yaappu):
     def __init__(self, text): #, treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
         super().__init__(text)
         

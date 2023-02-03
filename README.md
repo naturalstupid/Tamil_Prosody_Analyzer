@@ -1,4 +1,4 @@
-# Tamil Prosody Analyzer / தமிழ் இயற்பா செயலி
+# Tamil Prosody Analyzer / தமிழ் யாப்பறி செயலி
 This provides a python package to analyze Tamil poems and find out the poem types.  
 இயற்றமிழ் என்பது நினைத்த கருத்தை உணர்த்துவதையே நோக்கமாகக் கொண்டு நடப்பது, பேச்சும், உரையும் செய்யுளும் இதில் அடங்கும். இயற்றமிழ்ச் செய்யுளை இயற்பா என்பர்.
 

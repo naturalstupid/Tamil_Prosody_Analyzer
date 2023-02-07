@@ -386,15 +386,6 @@ class Sol(object):
                 "TODO: If Last word ends with Laghu (2 mathirai - it should be treated as Kuril - 1 mathirai. "
                 tc.set_nedil(True)
                 tc.set_kuril(False)
-            """
-            if first_character:
-                if tc.is_kuril():
-                    _nko_str += 'K'+separator
-                else:
-                    _nko_str += 'N'+separator
-                c += 1
-                continue
-            """
             if tc.is_nedil():
                 if tc.is_vallinam():
                     _nko_str += 'VN'+separator
@@ -437,57 +428,6 @@ class Sol(object):
                 _nko_str = _nko_str[:-1]
         return _nko_str
 
-    def _get_nko_yinam_string_old(self,paa_type="Yiyarpa", last_word=False):
-        _nko_str = ''
-        separator = ''
-        c = 0
-        char_count = len(self.tamil_char_objects)
-        for tc in self.tamil_char_objects:
-            first_character = (c==0)
-            last_character = (c == char_count-1)
-            middle_character = (c > 0 and c < char_count-1 )
-            """ TODO : விதி 3. அடியின் இறுதியிலோ, (சமமாக வரும்) அரையடியின் இறுதியிலோ வரும் குறில்கள் இரண்டு மாத்திரைகள் பெறும். """
-            """ for Sandhapaa/Vannappa change aikaaram to kuril """
-            if paa_type.lower() in _ISAI_PAA_NAMES and (tc.is_aikaaram() or tc.is_aukaaram()):
-                tc.set_nedil(last_word)
-                tc.set_kuril(not last_word)
-            if tc.is_nedil():
-                if tc.is_vallinam():
-                    _nko_str += 'VN'+separator
-                elif tc.is_mellinam():
-                    _nko_str += 'MN'+separator
-                elif tc.is_yidaiyinam():
-                    _nko_str += 'YN'+separator
-                elif tc.is_uyir_ezhuthu():
-                    _nko_str += 'UN'+separator
-                else:
-                    _nko_str += 'XN'+separator
-            elif tc.is_kuril():
-                if tc.is_vallinam():
-                    _nko_str += 'VK'+separator
-                elif tc.is_mellinam():
-                    _nko_str += 'MK'+separator
-                elif tc.is_yidaiyinam():
-                    _nko_str += 'YK'+separator
-                elif tc.is_uyir_ezhuthu():
-                    _nko_str += 'UK'+separator
-                else:
-                    _nko_str += 'XK'+separator
-            elif tc.is_otru():
-                if tc.is_vallinam():
-                    _nko_str += 'VO'+separator
-                elif tc.is_mellinam():
-                    _nko_str += 'MO'+separator
-                elif tc.is_yidaiyinam():
-                    _nko_str += 'YO'+separator
-                else:
-                    _nko_str += 'XO'+separator
-            c += 1
-        if _nko_str:
-            if (_nko_str[-1] == separator):
-                _nko_str = _nko_str[:-1]
-        return _nko_str
-
     def _get_nko_string(self,paa_type="Yiyarpa", last_word=False,middle_word=False):
         _nko_str = ''
         c = 0
@@ -495,23 +435,21 @@ class Sol(object):
         for tc in self.tamil_char_objects:
             first_character = (c==0)
             last_character = (c == char_count-1)
-            middle_character = (c > 0 and c < char_count-1 )
-            """ for Sandhapaa/Vannappa change aikaaram to kuril """
-            if paa_type.lower() in _ISAI_PAA_NAMES and (tc.is_aikaaram() or tc.is_aukaaram()):
-                tc.set_nedil(False)
-                tc.set_kuril(True)
+            if first_character and (tc.is_aikaaram() or tc.is_aukaaram()) and self.tamil_char_objects[c+1].is_kuril():
+                tc.set_nedil(True)
+                tc.set_kuril(False)
             if tc.is_nedil():
                 _nko_str += 'N'
             elif tc.is_kuril():
-                """ விதி 3. அடியின் இறுதியிலோ, (சமமாக வரும்) அரையடியின் இறுதியிலோ வரும் குறில்கள் இரண்டு மாத்திரைகள் பெறும். """
-                if paa_type.lower() in _ISAI_PAA_NAMES and last_word and last_character:
+                " விதி 3. அடியின் இறுதியிலோ, (சமமாக வரும்) அரையடியின் இறுதியிலோ வரும் குறில்கள் இரண்டு மாத்திரைகள் பெறும். "
+                if paa_type.lower() in _ISAI_PAA_NAMES and (last_word) and last_character:
                     _nko_str += 'N'
                 else:
                     _nko_str += 'K'
             elif tc.is_otru():
-                " TODO: this check does not work in all cases "
+                " விதி 4.சந்தப் பாடலின் சீர்களின் இடையில் வரும் ய ர ல வ ழ ள ஒற்றுகளுக்கும், சிறுபான்மை ன ண ம மெய்களுக்கும் மாத்திரைக் கணக்குக் கிடையாது."
                 if (paa_type.lower() == "sandhapa" or paa_type.lower() == "vannapa") and (not last_word) and \
-                  ((utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_MIDDLE,tc.text()) and middle_character) or  \
+                  ((utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_MIDDLE,tc.text()) and last_character) or  \
                   (utils.list_has_element(utils.ZERO_DURATION_SANDHA_OTRUGAL_END,tc.text()) and last_character)):
                     _nko_str += ''
                 else:
@@ -570,11 +508,15 @@ class Sol(object):
                     pass
             s = s + 1
         return _vanna_kuzhippu
-    def sandha_duration(self, paa_type = "Sandhapa", last_word=False):
-        nko = self._get_nko_string(paa_type, last_word)
+    def sandha_duration(self, paa_type = "Sandhapa", last_word=False, middle_word=False):
+        nko = self._get_nko_string(paa_type, last_word,middle_word)
         s = 0
         k = 0
         _sandha_duration = 0.0
+        if (nko == "KK" or nko=="KKO") and (len(nko)==2):
+            _sandha_duration = 3.0
+            return _sandha_duration
+
         while s <= len(nko):
             for i in range(len(utils.SANDHA_PAA_DURATION),-1,-1):
                 k = len(list(utils.SANDHA_PAA_DURATION[i-1].keys())[0])

@@ -269,7 +269,6 @@ class Marutpa(Yaappu):
                 "மருட்பா விதிகள் "
                 + ("பொருந்துகிறது." if paa_check else "பொருந்தவில்லை.")
                 + "\n"
-                + f"வெண்பா அடிகள் = {self.venpa_line_count} ஆசிரியப்பா அடிகள் = {self.asiriyapa_line_count}\n"
             )
             paa_str = status_line + header + body
             return [paa_check, poem_type, paa_str]

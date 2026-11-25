@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from nicegui import ui
 from yaappu import grammar, utils, Sandhapa, Vannapa, Marutpaa
-
+_APP_VERSION = "V1.7.7"
 BASE_DIR = Path(__file__).resolve().parent
 TEST_INPUT_DIR = BASE_DIR / 'yaappu' / 'test_input'
 VANNAPPA_DIR = TEST_INPUT_DIR / 'vannappa_examples'
@@ -154,7 +154,7 @@ def index():
             ui.notify(f'கோப்பைப் படிக்க முடியவில்லை ({selected_label}): {exc}', type='negative')
 
     with ui.header().classes('bg-indigo-800 text-white items-center justify-between px-4'):
-        ui.label('Tamil Prosody Analyzer — யாப்பறி செயலி').classes('text-lg font-bold tamil-font')
+        ui.label(f"Tamil Prosody Analyzer — யாப்பறி செயலி ({_APP_VERSION})").classes('text-lg font-bold tamil-font')
         file_select = ui.select(
             options=list(current_files.keys()),
             label='செய்யுள் கோப்பு (test_input)',
@@ -237,7 +237,7 @@ def index():
             await insert_text(c)
 
         # Virtual Tamil Keyboard
-        with ui.expansion('தமிழ் மெய்நிகர் விசைப்பலகை (Virtual Tamil Keyboard)', value=True).classes('w-full border rounded'):
+        with ui.expansion('தமிழ் மெய்நிகர் விசைப்பலகை (Virtual Tamil Keyboard)', value=False).classes('w-full border rounded'):
             with ui.column().classes('p-3 gap-2'):
                 ui.label('உயிர் எழுத்துக்கள்').classes('text-xs text-gray-600')
                 with ui.row().classes('flex-wrap gap-1'):
@@ -296,11 +296,17 @@ def index():
             if not text:
                 ui.notify('தயவுசெய்து செய்யுளை உள்ளிடவும்.', type='warning')
                 return
-            res = build_analysis(text, bool(sandhapa_cb.value), bool(vannapa_cb.value),
-                                 bool(marutpa_cb.value))
+            any_isaipaa = bool(sandhapa_cb.value or vannapa_cb.value or marutpa_cb.value)
+            res = build_analysis(
+                text,
+                bool(sandhapa_cb.value),
+                bool(vannapa_cb.value),
+                bool(marutpa_cb.value),
+            )
             for key, lbl in tab_panels_map.items():
                 lbl.set_text(res.get(key, ''))
-            if sandhapa_cb.value or vannapa_cb.value:
+            if any_isaipaa:
+                isaipaa_tab.set_visibility(True)
                 tabs.set_value(isaipaa_tab)
             else:
                 tabs.set_value(yaappu_tab)

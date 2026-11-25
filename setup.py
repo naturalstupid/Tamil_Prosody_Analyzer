@@ -1,11 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="tamil_prosody_analyzer", # Replace with your own username
-    version="1.7.7",
+    version="1.7.6",
     author="Sundar Sundaresan",
     author_email="get.in.touch.with.sundar@gmail.com",
     description="The goal of the tamil prosody analyzer is to predict tamil poem type",
@@ -26,10 +26,5 @@ setuptools.setup(
     ],
     python_requires='>=3.5',
     download_url='https://github.com/naturalstupid/tamil_prosody_analyzer/archive/master.zip',
-    install_requires=[
-        'itertools',
-        'operator',
-        'collections',
-        'enum',
-    ]
+    install_requires=[]
 )

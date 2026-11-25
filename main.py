@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
 from nicegui import ui
-from yaappu import grammar, utils, Sandhapa, Vannapa
+from yaappu import grammar, utils, Sandhapa, Vannapa, Marutpaa
 
 BASE_DIR = Path(__file__).resolve().parent
 TEST_INPUT_DIR = BASE_DIR / 'yaappu' / 'test_input'
 VANNAPPA_DIR = TEST_INPUT_DIR / 'vannappa_examples'
 SANDHAPPA_DIR = TEST_INPUT_DIR / 'sandhappa_examples'
+MARUTPA_DIR = TEST_INPUT_DIR / 'marutppa_examples'
 
 UYIR_KEYS = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
 BASE_CONSONANTS = [
@@ -31,7 +32,8 @@ VOWEL_SIGNS = {
 }
 
 
-def load_files_for_selection(check_sandhapa: bool, check_vannapa: bool) -> dict[str, Path]:
+def load_files_for_selection(check_sandhapa: bool, check_vannapa: bool,
+                             check_marutpa: bool) -> dict[str, Path]:
     """Return a {dropdown_label: Path} mapping while preserving each file's source folder."""
     files_map: dict[str, Path] = {}
 
@@ -42,20 +44,21 @@ def load_files_for_selection(check_sandhapa: bool, check_vannapa: bool) -> dict[
             label = f'{prefix}{p.name}'
             files_map[label] = p
 
+    if check_marutpa:
+        add_from_folder(MARUTPA_DIR, prefix='மருட்பா: ')
     if check_vannapa and check_sandhapa:
         add_from_folder(VANNAPPA_DIR, prefix='வண்ணப்பா: ')
         add_from_folder(SANDHAPPA_DIR, prefix='சந்தப்பா: ')
-    elif check_vannapa:
         add_from_folder(VANNAPPA_DIR)
     elif check_sandhapa:
         add_from_folder(SANDHAPPA_DIR)
-    else:
+    elif not check_marutpa:
         add_from_folder(TEST_INPUT_DIR)
 
     return files_map
 
-
-def build_analysis(poem_text: str, check_sandhapa: bool, check_vannapa: bool) -> dict[str, str]:
+def build_analysis(poem_text: str, check_sandhapa: bool, check_vannapa: bool,
+                   check_marutpa: bool) -> dict[str, str]:
     tp = grammar.Yaappu(poem_text)
     paa_check, poem_analysis = tp.analyze(get_individual_poem_analysis=True)
 
@@ -110,6 +113,9 @@ def build_analysis(poem_text: str, check_sandhapa: bool, check_vannapa: bool) ->
     if check_vannapa:
         v_check, v_type, v_str = Vannapa.Vannapa(poem_text).check_for_vannapaa()
         isaipaa_out.append(f'{v_check}\n{v_type}\n{v_str}')
+    if check_marutpa:
+        m_check, m_type, m_str = Marutpaa.Marutpa(poem_text).check_for_marutpaa()
+        isaipaa_out.append(f'{m_check}\n{m_type}\n{m_str}')
 
     return {
         'ezhuthu': char_stats,
@@ -132,7 +138,7 @@ def index():
     </style>
     ''')
 
-    current_files: dict[str, Path] = load_files_for_selection(False, False)
+    current_files: dict[str, Path] = load_files_for_selection(False, False, False)
     selected_base = {'char': 'க'}
     sign_buttons: dict[str, ui.button] = {}
     tab_panels_map: dict[str, ui.label] = {}
@@ -160,6 +166,7 @@ def index():
             ui.label('இசைப்பாவை ஆராயவும்:').classes('font-semibold')
             sandhapa_cb = ui.checkbox('சந்தப்பா')
             vannapa_cb = ui.checkbox('வண்ணப்பா')
+            marutpa_cb = ui.checkbox('மருட்பா')
 
         textarea = ui.textarea(
             label='தமிழ்ச் செய்யுளை உள்ளிடவும்',
@@ -258,9 +265,10 @@ def index():
                     ui.button('Enter', on_click=lambda: insert_text('\n')).props('dense flat size=sm')
                     ui.button('⌫', on_click=backspace_text).props('dense color=negative outline size=sm')
 
-        def sync_file_dropdown_for_mode(check_sandhapa: bool, check_vannapa: bool) -> None:
+        def sync_file_dropdown_for_mode(check_sandhapa: bool, check_vannapa: bool,
+                                        check_marutpa: bool) -> None:
             nonlocal current_files
-            current_files = load_files_for_selection(check_sandhapa, check_vannapa)
+            current_files = load_files_for_selection(check_sandhapa, check_vannapa, check_marutpa)
             file_select.options = list(current_files.keys())
             if file_select.value not in current_files:
                 file_select.value = None
@@ -269,22 +277,27 @@ def index():
         def on_isaipaa_toggle():
             s_checked = bool(sandhapa_cb.value)
             v_checked = bool(vannapa_cb.value)
-            sync_file_dropdown_for_mode(s_checked, v_checked)
+            m_checked = bool(marutpa_cb.value)
+            sync_file_dropdown_for_mode(s_checked, v_checked, m_checked)
 
-            show_isa = s_checked or v_checked
+            show_isa = s_checked or v_checked or m_checked
             isaipaa_tab.set_visibility(show_isa)
             if show_isa:
                 tabs.set_value(isaipaa_tab)
-
+            elif tabs.value == isaipaa_tab:
+                tabs.set_value(yaappu_tab)
+        
         sandhapa_cb.on_value_change(lambda _: on_isaipaa_toggle())
         vannapa_cb.on_value_change(lambda _: on_isaipaa_toggle())
+        marutpa_cb.on_value_change(lambda _: on_isaipaa_toggle())
 
         def run_analysis():
             text = (textarea.value or '').strip()
             if not text:
                 ui.notify('தயவுசெய்து செய்யுளை உள்ளிடவும்.', type='warning')
                 return
-            res = build_analysis(text, bool(sandhapa_cb.value), bool(vannapa_cb.value))
+            res = build_analysis(text, bool(sandhapa_cb.value), bool(vannapa_cb.value),
+                                 bool(marutpa_cb.value))
             for key, lbl in tab_panels_map.items():
                 lbl.set_text(res.get(key, ''))
             if sandhapa_cb.value or vannapa_cb.value:

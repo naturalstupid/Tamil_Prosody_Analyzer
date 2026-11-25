@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *.pyo
+tamil_prosody_analyzer.egg-info/
 
 # Application-generated output
 yaappu/output/

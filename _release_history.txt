@@ -1,1 +1,2 @@
+V1.8.0 - crash fixed
 V1.7.9 - updated etup, release.ps1

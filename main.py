@@ -4,6 +4,8 @@ from nicegui import ui
 from yaappu import grammar, utils, Sandhapa, Vannapa, Marutpaa
 import re
 
+BASE_DIR = Path(__file__).resolve().parent
+
 
 def get_app_version() -> str:
     setup_file = BASE_DIR / 'setup.py'
@@ -11,8 +13,10 @@ def get_app_version() -> str:
         match = re.search(r'''version\s*=\s*['"]([^'"]+)['"]''', setup_file.read_text(encoding='utf-8'))
         if match:
             return f"V{match.group(1)}"
-    return 'V1.7.8'
+    return 'V1.7.9'
 
+
+_APP_VERSION = get_app_version()
 
 _APP_VERSION = get_app_version()
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from yaappu import grammar
 import string
+import itertools
 from itertools import islice
 from operator import itemgetter
 from collections import Counter
@@ -136,48 +137,6 @@ SEERGAL = ['தேமா',"புளிமா","கூவிளம்","கர�
            "கூவிளங்காய்", "கூவிளங்கனி", "தேமாந்தண்பூ", "தேமாந்தண்ணிழல்", "தேமாநறும்பூ", "தேமாநறுநிழல்", "புளிமாந்தண்பூ", "புளிமாந்தண்ணிழல்", "புளிமாநறும்பூ", \
                 "புளிமாநறுநிழல்", "கூவிளந்தண்பூ", "கூவிளந்தண்ணிழல்", "கூவிளநறும்பூ", "கூவிளநறுநிழல்", "கருவிளந்தண்பூ", "கருவிளந்தண்ணிழல்", "கருவிளநறும்பூ", "கருவிளநறுநிழல்"
           ]
-SEER_TYPES = [ {"நேர்":"நேர்", "நிரை":"நிரை"}, \
-               {"நேர் நேர்":"தேமா", "நிரை நேர்":"புளிமா", "நேர் நிரை":"கூவிளம்", "நிரை நிரை":"கருவிளம்"}, \
-               {"நேர் நேர் நேர்":"தேமாங்காய்", "நேர் நேர் நிரை":"தேமாங்கனி", "நிரை நேர் நேர்":"புளிமாங்காய்", "நிரை நேர் நிரை":"புளிமாங்கனி", \
-                "நிரை நிரை நேர்":"கருவிளங்காய்", "நிரை நிரை நிரை":"கருவிளங்கனி", "நேர் நிரை நேர்":"கூவிளங்காய்", "நேர் நிரை நிரை":"கூவிளங்கனி"
-               }, \
-               {"நேர் நேர் நேர் நேர்":"தேமாந்தண்பூ", "நேர் நேர் நேர் நிரை":"தேமாந்தண்ணிழல்", "நேர் நேர் நிரை நேர்":"தேமாநறும்பூ", "நேர் நேர் நிரை நிரை":"தேமாநறுநிழல்", \
-                "நிரை நேர் நேர் நேர்":"புளிமாந்தண்பூ", "நிரை நேர் நேர் நிரை":"புளிமாந்தண்ணிழல்", "நிரை நேர் நிரை நேர்":"புளிமாநறும்பூ", \
-                "நிரை நேர் நிரை நிரை":"புளிமாநறுநிழல்", "நேர் நிரை நேர் நேர்":"கூவிளந்தண்பூ", "நேர் நிரை நேர் நிரை":"கூவிளந்தண்ணிழல்", \
-                "நேர் நிரை நிரை நேர்":"கூவிளநறும்பூ", "நேர் நிரை நிரை நிரை":"கூவிளநறுநிழல்", "நிரை நிரை நேர் நேர்":"கருவிளந்தண்பூ", \
-                "நிரை நிரை நேர் நிரை":"கருவிளந்தண்ணிழல்", "நிரை நிரை நிரை நேர்":"கருவிளநறும்பூ", "நிரை நிரை நிரை நிரை":"கருவிளநறுநிழல்"
-               }
-            ]
-THALAI_TYPES = {"மா நேர்": "நேரொன்றிய ஆசிரியத்தளை", 
-        "விளம் நிரை" : "நிரையொன்றிய ஆசிரியத்தளை",
-        "விளம் நேர்" : "இயற்சீர் வெண்டளை",
-        "மா நிரை" : "இயற்சீர் வெண்டளை",
-        "காய் நேர்" : "வெண்சீர் வெண்டளை",
-        "காய் நிரை" : "கலித்தளை",
-        "கனி நிரை" : "ஒன்றிய வஞ்சித்தளை",
-        "கனி நேர்" : "ஒன்றா வஞ்சித்தளை",
-        "பூ நேர்" : "வெண்சீர் வெண்டளை",
-        "பூ நிரை" : "கலித்தளை",
-        "நிழல் நேர்" : "ஒன்றா வஞ்சித்தளை",
-        "நிழல் நிரை" : "ஒன்றிய வஞ்சித்தளை",
-        "ணிழல் நேர்" : "ஒன்றா வஞ்சித்தளை",
-        "ணிழல் நிரை" : "ஒன்றிய வஞ்சித்தளை",
-        }
-THALAI_TYPES_SHORT = {"மா நேர்": "ஆசிரியத்தளை", 
-        "விளம் நிரை" : "ஆசிரியத்தளை",
-        "விளம் நேர்" : "வெண்டளை",
-        "மா நிரை" : "வெண்டளை",
-        "காய் நேர்" : "வெண்டளை",
-        "காய் நிரை" : "கலித்தளை",
-        "கனி நிரை" : "வஞ்சித்தளை",
-        "கனி நேர்" : "வஞ்சித்தளை",
-        "பூ நேர்" : "வெண்டளை",
-        "பூ நிரை" : "கலித்தளை",
-        "நிழல் நேர்" : "வஞ்சித்தளை",
-        "நிழல் நிரை" : "வஞ்சித்தளை",
-        "ணிழல் நேர்" : "வஞ்சித்தளை",
-        "ணிழல் நிரை" : "வஞ்சித்தளை",
-        }
 OSAI_TYPES = {"நேரொன்றிய ஆசிரியத்தளை" : "ஏந்திசை அகவலோசை",
         "நிரையொன்றிய ஆசிரியத்தளை" : "தூங்கிசை அகவலோசை",
         "இயற்சீர் வெண்டளை" : "தூங்கிசைச் செப்பலோசை",
@@ -285,6 +244,26 @@ def get_first_morpheme(word):
         return UYIRGAL[index+1]
     return first_char
 
+def _create_thaLai_map():
+    asai1 = ["மா ","விளம் ","காய் ","கனி ", "பூ ", "நிழல் ","ணிழல் "]
+    asai2 = ["நேர் ","நிரை "]
+    thaLaigaL = ["நேரொன்றிய ஆசிரியத்தளை","இயற்சீர் வெண்டளை","இயற்சீர் வெண்டளை","நிரையொன்றிய ஆசிரியத்தளை","வெண்சீர் வெண்டளை", "கலித்தளை","ஒன்றா வஞ்சித்தளை","ஒன்றிய வஞ்சித்தளை","வெண்சீர் வெண்டளை","கலித்தளை","ஒன்றா வஞ்சித்தளை","ஒன்றிய வஞ்சித்தளை","ஒன்றா வஞ்சித்தளை","ஒன்றிய வஞ்சித்தளை"]
+    thaLai_types = {''.join(tups).strip():thaLaigaL[i] for i,tups in enumerate(list(itertools.product(*[asai1,asai2])))}
+    thalai_types_short = {key:(value.split()[-1]) for key,value in thaLai_types.items()}
+    return thaLai_types, thalai_types_short
+THALAI_TYPES, THALAI_TYPES_SHORT = _create_thaLai_map()
+def _create_seer_map():
+    asai = ["நேர் ","நிரை "]
+    seers = ["நேர் ","நிரை ","தேமா", "கூவிளம்", "புளிமா", "கருவிளம்", "தேமாங்காய்", "தேமாங்கனி", "கூவிளங்காய்", "கூவிளங்கனி", "புளிமாங்காய்", "புளிமாங்கனி", "கருவிளங்காய்", "கருவிளங்கனி", "தேமாந்தண்பூ", "தேமாந்தண்ணிழல்", "தேமாநறும்பூ", "தேமாநறுநிழல்", "கூவிளந்தண்பூ", "கூவிளந்தண்ணிழல்",  "கூவிளநறும்பூ", "கூவிளநறுநிழல்", "புளிமாந்தண்பூ", "புளிமாந்தண்ணிழல்", "புளிமாநறும்பூ", "புளிமாநறுநிழல்", "கருவிளந்தண்பூ", "கருவிளந்தண்ணிழல்", "கருவிளநறும்பூ", "கருவிளநறுநிழல்"]
+    result = []
+    k = 0
+    for l in range(1,5):
+        res = [''.join(tups).strip() for i,tups in enumerate(list(itertools.product(*[asai],repeat=l)))]
+        d = {r.strip():seers[k+i].strip() for i,r in enumerate(res)}
+        k = k + len(res)
+        result.append(d)
+    return result
+SEER_TYPES = _create_seer_map()
 def list_has_element(list,element):
     try:
         return element in list
@@ -415,6 +394,26 @@ def convert_1d_list_to_2d(list_1d_arr, len_arr):
     it = iter(list_1d_arr)
     return [list(islice(it, i)) for i in len_arr]
     
+def string_array_equal(array_2d, expected_fraction:float):
+    result = True
+    col_count = len(array_2d[0])
+    row_count = len(array_2d)
+    equal_count = col_count;
+    equal_count += sum([array_2d[r][c]==array_2d[r-1][c] for r in range(1,row_count) for c in range(col_count) ])
+    totalCount = ((row_count)*col_count);
+    actualFraction = (equal_count / totalCount)
+    result = (actualFraction >= expected_fraction)
+    return result,actualFraction;
+def double_array_equal(array_2d, expected_fraction:float):
+    result = True
+    col_count = len(array_2d[0])
+    row_count = len(array_2d)
+    equal_count = col_count;
+    equal_count += sum([array_2d[r][c]==array_2d[r-1][c] for r in range(1,row_count) for c in range(col_count) ])
+    totalCount = ((row_count)*col_count);
+    actualFraction = (equal_count / totalCount)
+    result = (actualFraction >= expected_fraction)
+    return result,actualFraction;
 def get_character_type_counts(sentence, results_in_descending_order=True, show_by_character_type_keys=True, include_zero_counts=False):
     stats = {}
     sentence = sentence.replace('\n',' ') #remove line ends
@@ -455,7 +454,6 @@ def get_all_tamil_characters(include_space=True, include_vadamozhi=False):
     all_tamil_chars += UYIRGAL+['ஃ']+T_U_1+ [t1+t2 for t1 in T_U_1 for t2 in TAMIL_UNICODE_2]
     return all_tamil_chars
 def _get_vannappa_dictionary():
-    import itertools
     res = []
     sandham = 'தான'
     a = [['UN','VN','YN','MN'],['UK','VK','MK','YK']]
@@ -615,12 +613,14 @@ VANNAPAA_DICT3 = [
 ]
 if __name__ == '__main__':
     """
-    VANNAPAA_DICT2 = _get_vannappa_dictionary()
-    print(VANNAPAA_DICT2)
+    seer_types = _create_seer_map()
+    print(seer_types)
     exit()
     """
     #"""
-    s = 'அஃதின்றேல்'
+    s = 'அஃதின்றேல் அஃதின்றேல்'
+    print(get_unicode_characters(s))
+    exit()
     word = grammar.Sol(s)
     print(word.duration('vannapa'))
     nko = word._get_nko_yinam_string('vannapa', last_word=False, middle_word=False)
@@ -688,7 +688,7 @@ if __name__ == '__main__':
     print(get_matching_sublist('சை',flatten_list([MONAI_THODAI_4, MONAI_THODAI_5, MONAI_THODAI_6]),8))
     print(get_matching_sublist('வெ',flatten_list([MONAI_THODAI_1, MONAI_THODAI_2, MONAI_THODAI_3]),4))
     exit()
-    print(get_keys_containing_string(THALAI_TYPES,'தேமாந்தண்பூ நேர் நேர் நேர் நிரை' ))
+    print(get_keys_containing_string(thaLai_types,'தேமாந்தண்பூ நேர் நேர் நேர் நிரை' ))
     exit()
     print(get_unicode_characters('க்ஷோக்ஷௌஹோ'))
     exit()

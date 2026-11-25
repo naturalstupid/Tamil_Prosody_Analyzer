@@ -1,0 +1,14 @@
+# Python generated files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Application-generated output
+yaappu/output/
+
+# Environment / editor
+.venv/
+venv/
+.env
+.vscode/
+.idea/

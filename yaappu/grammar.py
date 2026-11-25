@@ -125,7 +125,7 @@ RED_CROSS = u'\u274C  '
 GEQ = u' \u2265 '
 RULE_CHECK = lambda rc : '\t' + GREEN_CHECK if rc else '\t' + RED_CROSS
 PERCENT = "{:.0%}"
-PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%} )"
+PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%}? )"
 _SANDHA_PAA_NAMES = ["sandhapa","sandhapaa","sandhappa","sandhappaa"]
 _VANNA_PAA_NAMES = ["vannapa","vannapaa","vannappa","vannappaa"]
 _ISAI_PAA_NAMES = _SANDHA_PAA_NAMES+_VANNA_PAA_NAMES
@@ -773,11 +773,16 @@ class Yiyarpa(object):
     def text(self):
         return self._text
     
+    def remove_tabs(self,text):
+        import re
+        self.original_text = text
+        text = re.sub('(\s)*\n(\s)*\t',' ',text)
+        return text
     def set_text(self, text):
         self.original_text = text
         text = text.translate(str.maketrans('', '', string.punctuation))
         text = text.replace('\r','')
-        self._text = text
+        self._text = self.remove_tabs(text)
         self.lines = self._text.splitlines()
         self._line_count = len(self.lines)
         self.line_objects = [Adi(line) for line in self.lines] 
@@ -1423,6 +1428,18 @@ def _analyze_thirukural():
     print('kuralgal_with_incompatible_seer_count',kuralgal_with_incompatible_seer_count)
             
 if __name__ == '__main__':
+    #"""
+    tp = Yaappu("தினமணி சார்ங்கபாணி யெனமதிள் நீண்டுசால  தினகர னேய்ந்தமாளி - கையிலாரஞ் \n "+
+                " \tசெழுமணி சேர்ந்தபீடி கையிலிசை வாய்ந்தபாடல்  வயிரியர் சேர்ந்துபாட - இருபாலும்\n "+
+                "இனவளை பூண்கையார்க வரியிட வேய்ந்துமாலை புழுககில் சாந்துபூசி - யரசாகி \n "+
+                " \tஇனிதிறு மாந்துவாழு மிருவினை நீண்டகாய மொருபிடி சாம்பலாகி - விடலாமோ\n"+
+                "வனசர ரேங்கவான முகடுற வோங்கிஆசை மயிலொடு பாங்கிமார்க - ளருகாக\n"+
+                "\tமயிலொடு மான்கள்சூழ வளவரி வேங்கையாகி மலைமிசை தோன்றுமாய - வடிவோனே\n"+
+                "கனசமண் மூங்கர்கோடி கழுமிசை தூங்கநீறு கருணைகொள் பாண்டிநாடு - பெறவேதக் \n"+
+                "\tகவிதரு காந்தபால கழுமல பூந்தராய கவுணியர் வேந்ததேவர் - பெருமாளே")
+    print(tp.remove_tabs(tp.original_text))
+    exit()
+    #"""
     """
     last_word = False
     middle_word = True

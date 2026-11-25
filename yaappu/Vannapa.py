@@ -147,30 +147,20 @@ class Vannapa(Yaappu):
         """ _VANNAPA_RULE_3 """
         adi_edhugai_check = self.has_adi_edhugai()
         paa_str += RULE_CHECK(adi_edhugai_check) + _VANNAPA_RULE_3+"\t"+self.adi_edhugai_words+"\n"
-        """ _VANNAPA_RULE_4 """
+        #""" _VANNAPA_RULE_4 """
+        #" V1.7.4 - Kalai Monai Check disabled for now - not sure it is required for Vannappa?"
+        #"""
         kalai_monai_check = self.has_kalai_monai()
         paa_str += RULE_CHECK(kalai_monai_check) + _VANNAPA_RULE_4+"\t"+self.kalai_monai_words+"\n"
         paa_check = has_sandha_ozhungu and has_sandha_kuzhippu and adi_edhugai_check and kalai_monai_check 
+        #"""
+        #paa_check = has_sandha_ozhungu and has_sandha_kuzhippu and adi_edhugai_check
         paa_str = "வண்ணப்பா விதிகள் " + ("பொருந்துகிறது." if (paa_check) else "பொருந்தவில்லை.") + "\n" + paa_str
         if paa_check:
             paa_str += "\t"+self.get_kuzhippu_thongal_kalai()
         return [paa_check, poem_type, paa_str]
-    def __check_for_vannapaa_old(self):
-        return self.has_sandha_kuzhippu()
-
-        
 
 if __name__ == '__main__':
-    """
-    song = "முத்து, வற்றல், விட்டம், மொய்த்த, மெய்ச்சொல், கர்த்தன்\n"+ \
-"அக்கா, முட்டாள், விட்டான், பொய்க்கோ, நெய்க்கோல், மெய்க்கோன்\n"+ ]
-"பாட்டு, பாட்டன், கூத்தன், வார்ப்பு, தூர்த்தன், வாழ்த்தல்\n"+ \
-"தாத்தா, மூச்சால், சாத்தான், வேய்ப்பூ, மாய்த்தோர், வார்த்தோன்\n"+ \
-"பந்து, உம்பர், சுண்டல், மொய்ம்பு, மொய்ம்பர், மொய்ம்பன்\n"+ \
-"அந்தோ, வந்தார், தந்தேன், மொய்ம்பா, மொய்ம்போர், மொய்ம்போன்\n"+ \
-"வேந்து, வேந்தர், பாங்கன், பாய்ந்து, சார்ங்கர், சார்ங்கம்\n"+ \
-"சேந்தா, வாங்கார், நான்றான், நேர்ந்தோ, சார்ந்தார், மாய்ந்தான்"
-    """
     #"""
     song = "பஞ்சியொளி(ர்) விஞ்சுகுளிர் பல்லவம னுங்க\n"+ \
 "செஞ்செவிய கஞ்சநிகர் சீறடியள் ஆகி\n"+ \

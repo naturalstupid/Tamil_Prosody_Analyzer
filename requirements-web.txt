@@ -1,0 +1,2 @@
+# NiceGUI includes FastAPI/Uvicorn and the web runtime dependencies.
+nicegui>=2.0,<3.0

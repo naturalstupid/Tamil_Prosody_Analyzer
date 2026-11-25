@@ -1,26 +1,84 @@
 # coding=utf8
+import os
 from PyQt6 import QtTest
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 from PyQt6 import QtGui
 from PyQt6.QtGui import QFont
 from yaappu import Sandhapa, Vannapa
+import img2pdf
+from PIL import Image
+
 grammar = __import__("grammar")
 utils = __import__("utils")
 _APP_TITLE = "Tamil Prosody Analyzer"
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+_IMAGES_PATH = os.path.dirname(ROOT_DIR + "\\images\\")
+_IMAGES_PER_PDF_PAGE = 1
+                               
+def _combine_multiple_images(image_list,output_image,combine_mode='vertical',image_quality_in_pixels=100):
+    total_width = 0
+    total_height = 0
+    max_width = 0
+    max_height = 0
+    ix =[]
+    for img in image_list:
+        im = Image.open(img)
+        size = im.size
+        w = size[0]
+        h = size[1]
+        total_width += w 
+        total_height += h
+        
+        if h > max_height:
+            max_height = h
+        if w > max_width:
+            max_width = w
+        ix.append(im) 
+    if combine_mode.lower()=='vertical':
+        target = Image.new('RGB', (max_width, total_height))
+    else:
+        target = Image.new('RGB', (total_width, max_height))
+    pre_w = 0
+    pre_h = 0
+    for img in ix:
+        if combine_mode.lower()=='vertical':
+            target.paste(img, (pre_w, pre_h, pre_w+max_width, pre_h + img.size[1]))
+            pre_h += img.size[1]
+        else:
+            target.paste(img, (pre_w, pre_h, pre_w+img.size[0], pre_h + img.size[1]))
+            pre_w += img.size[0]            
+    target.save(output_image, quality=image_quality_in_pixels)
 def _set_text_edit_size_to_rows(text_edit:QTextEdit,n_rows):
     m = QtGui.QFontMetrics(text_edit.font())
     row_height = m.lineSpacing()
     text_edit.setFixedHeight(n_rows*row_height)
+class MyTextEdit(QTextEdit):
+    def __init__(self,scrollbar_policy=Qt.ScrollBarPolicy.ScrollBarAlwaysOff):
+        super().__init__()
+        self.scrollbar_policy = scrollbar_policy
+        #self.setFont(font)
+        self.textChanged.connect(self.autoResize)
+
+    def autoResize(self):
+        self.document().setTextWidth(self.viewport().width())
+        margins = self.contentsMargins()
+        height = int(self.document().size().height()*1.1 + margins.top() + margins.bottom())
+        self.setFixedHeight(height)
+
+    def resizeEvent(self, event):
+        self.autoResize()
+        self.setHorizontalScrollBarPolicy(self.scrollbar_policy)
+        self.clearFocus()
 class MyAppWidget(QWidget):
     def __init__(self, tamil_poem_file=None):
         super(MyAppWidget,self).__init__()
         self.tamil_poem_file = tamil_poem_file
         self.setWindowTitle(_APP_TITLE)
-        window_height = 500
-        window_width = 750
-        self.setMinimumSize(window_width, window_height)
-        layout = QVBoxLayout()
+        window_height = 600
+        window_width = 900
+        #self.setMinimumSize(window_width, window_height)
+        v_layout = QVBoxLayout()
         h_layout = QHBoxLayout()
         isaipa_label = QLabel("இசைப்பாவை ஆராயவும்:")
         h_layout.addWidget(isaipa_label)
@@ -38,13 +96,28 @@ class MyAppWidget(QWidget):
         self._isaipaa_selected = self._btnSandhapa.isChecked() or self._btnVannapa.isChecked()
         #print('_isaipaa_selected',self._isaipaa_selected)
         h_layout.addStretch()
-        layout.addLayout(h_layout)
-        self.input_text = QTextEdit()
-        #splitter = QSplitter(Qt.Orientation.Vertical)
-        #splitter.addWidget(self.input_text)
-        #self.input_text.setMaximumHeight(int(0.25*window_height))
+        v_layout.addLayout(h_layout)
+        #splitter = QSplitter()
+        #splitter.setOrientation(Qt.Orientation.Vertical)
+        self.input_text = MyTextEdit() #QTextEdit() # 
+        self.input_text.setMaximumHeight(int(0.25*window_height))
         _set_text_edit_size_to_rows(self.input_text,10)
-        layout.addWidget(self.input_text)
+        #self.input_text.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        #splitter.addWidget(self.input_text)
+        v_layout.addWidget(self.input_text)
+        self.tabWidget = QTabWidget()
+        self.tabNames = ["எழுத்து", "அசை-சீர்-அடி", "தளை-ஓசை", "சீர்-தொடை", "அடி -தொடை","யாப்பு","ஆய்வு விவரங்கள்","இசைப்பா"]
+        self.tabCount = len(self.tabNames); self._isaipaa_index = self.tabCount - 1
+        self.tabWidget.setTabVisible(self._isaipaa_index,self._isaipaa_selected)
+        self.outputText = []
+        for t in range(self.tabCount):
+            self.outputText.append(QTextEdit(""))#(MyTextEdit())#
+            self.tabWidget.addTab(self.outputText[t],self.tabNames[t])
+            self.outputText[t].setFocusPolicy(Qt.FocusPolicy.NoFocus)
+            #self.outputText[t].setLineWrapColumnOrWidth(window_width)
+        #splitter.addWidget(self.tabWidget)
+        v_layout.addWidget(self.tabWidget)
+        #v_layout.addWidget(splitter)
         self.setStyleSheet('QPushButton {background-color: #A3C1DA; color: red;}')
         buttonLayout = QHBoxLayout()
         open_button = QPushButton("செய்யுள் கோப்பை திறக்கவும்")
@@ -61,27 +134,17 @@ class MyAppWidget(QWidget):
         buttonLayout.addWidget(close_button)
         #""" Not wotking yet
         save_as_pdf_button = QPushButton("வெளியீட்டை சேமி")
-        save_as_pdf_button.clicked.connect(self._save_as_text) #(self._save_as_image)
+        save_as_pdf_button.clicked.connect(self._save_as_text) #(self._save_as_pdf_2)#(self._save_as_image)#
         buttonLayout.addWidget(save_as_pdf_button)
         #"""
-        layout.addLayout(buttonLayout)
-        self.tabWidget = QTabWidget()
-        self.tabNames = ["எழுத்து", "அசை-சீர்-அடி", "தளை-ஓசை", "சீர்-தொடை", "அடி -தொடை","யாப்பு","ஆய்வு விவரங்கள்","இசைப்பா"]
-        self.tabCount = len(self.tabNames)
-        self.tabWidget.setTabEnabled(self.tabCount-1,self._isaipaa_selected)
-        self.outputText = []
-        for t in range(self.tabCount):
-            self.outputText.append(QTextEdit(""))
-            self.tabWidget.addTab(self.outputText[t],self.tabNames[t])
-            self.outputText[t].setFocusPolicy(Qt.FocusPolicy.NoFocus)
-            self.outputText[t].setLineWrapColumnOrWidth(window_width)
-        layout.addWidget(self.tabWidget)
-        self.setLayout(layout)
+        v_layout.addLayout(buttonLayout)
+        self.setLayout(v_layout)
         self._display_file_contents(tamil_poem_file)
     def _isaipaa_selection_changed(self):
         self._isaipaa_selected = self._btnSandhapa.isChecked() or self._btnVannapa.isChecked()
-        self.tabWidget.setTabEnabled(self.tabCount-1,self._isaipaa_selected)
-        #print('_isaipaa_selected',self._isaipaa_selected)
+        self.tabWidget.setTabEnabled(self._isaipaa_index,self._isaipaa_selected)
+        self.tabWidget.setTabVisible(self._isaipaa_index,self._isaipaa_selected)
+        #print('_isaipaa_selection_changed',self._isaipaa_selected)
     def _display_file_contents(self, tamil_poem_file):
         import os
         if tamil_poem_file:
@@ -117,7 +180,42 @@ class MyAppWidget(QWidget):
             im.save(saved_image_file)
         for t in range(self.tabCount):
             self.outputText[t].setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        
+    def _save_as_pdf_2(self,pdf_file_name=None):
+        print('pdf_file_name',pdf_file_name,self.tabCount)
+        _images_path = _IMAGES_PATH
+        image_prefix = 'pdf_grb_'
+        image_ext = '.png'
+        if pdf_file_name==None or pdf_file_name==False:
+            path = QFileDialog.getSaveFileName(self, 'Choose folder and file to save as PDF file', './output', 'PDF files (*.pdf)')#)
+            pdf_file_name = path[0]
+        image_files = []
+        combined_image_files = []
+        image_id = 1
+        self.showMaximized()
+        if pdf_file_name:
+            for t in range(self.tabCount):
+                self.tabWidget.setCurrentIndex(t)
+                #self.outputText[t].setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+                image_file = _images_path+image_prefix+str(image_id)+image_ext
+                image_files.append(image_file)
+                im = self.grab()
+                im.save(image_file) 
+                image_id +=1
+        #for t in range(self.tabCount):
+        #    self.outputText[t].setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        ci = 1
+        for i in range(0,len(image_files),_IMAGES_PER_PDF_PAGE):
+            combined_image_file = _images_path+'combined_'+str(ci)+image_ext
+            _combine_multiple_images(image_files[i:i+2],combined_image_file)
+            combined_image_files.append(combined_image_file)
+            ci += 1
+        with open(pdf_file_name,"wb") as f:
+            f.write(img2pdf.convert(combined_image_files))
+        f.close()
+        for image_file in image_files+combined_image_files:
+            if os.path.exists(image_file):
+                os.remove(image_file)
+        self.showNormal()
     def _save_as_pdf(self):
         """ Not working Yet """
         path = QFileDialog.getSaveFileName(self, 'Choose folder and file to save PDF file', './test/input', 'PDF files (*.pdf)')#)
@@ -230,6 +328,8 @@ class MyAppWidget(QWidget):
             line_count = len(poem_text.split("\n"))
             _set_text_edit_size_to_rows(self.input_text,line_count+1)
             paa_check,poem_analysis = tamil_poem.analyze(get_individual_poem_analysis=True)
+            self.tabWidget.setTabEnabled(self._isaipaa_index,self._isaipaa_selected)
+            self.tabWidget.setTabVisible(self._isaipaa_index,self._isaipaa_selected)
             self.outputText[0].setPlainText(self.__get_character_statistics(tamil_poem))
             self.outputText[1].setPlainText(self.__get_asai_seer_adi(tamil_poem))
             self.outputText[2].setPlainText(self.__get_thaLai_Osai(tamil_poem))
@@ -237,6 +337,7 @@ class MyAppWidget(QWidget):
             self.outputText[4].setPlainText(self.__get_adi_thodai(tamil_poem))
             self.outputText[5].setPlainText(paa_check[1] + grammar.RULE_CHECK(paa_check[0])+"\n"+paa_check[2])
             self.outputText[6].setPlainText(poem_analysis)
+            #print('_isaipaa_selected',self._isaipaa_selected)
             if self._isaipaa_selected:
                 isaipaa_str = ""
                 if (self._btnSandhapa.isChecked()):
@@ -250,6 +351,8 @@ class MyAppWidget(QWidget):
                 #print(isaipaa_str)
                 self.outputText[7].setPlainText(isaipaa_str)    
             self.tabWidget.setCurrentIndex(5)
+            if (self._btnSandhapa.isChecked()) or (self._btnVannapa.isChecked()):
+                self.tabWidget.setCurrentIndex(7)
         else:
             self.input_text.setPlainText('')
 if __name__ == "__main__":
@@ -257,7 +360,6 @@ if __name__ == "__main__":
     def except_hook(cls, exception, traceback):
         sys.__excepthook__(cls, exception, traceback)
     sys.excepthook = except_hook
-
     app = QApplication(sys.argv)
     window = MyAppWidget('./test_input/Asiriyappavinam_ThuRai_Madakkai_2.txt')
     window.show()

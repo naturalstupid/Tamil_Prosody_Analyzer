@@ -38,81 +38,61 @@ def check_rule_1(word1, word2):
     combined_word = ''
     word1_last_char = utils.get_last_morpheme( utils.get_unicode_characters(word1)[-1] )
     word2_first_char = utils.get_first_morpheme( utils.get_unicode_characters(word2)[0] )
-    print(word1,word1_last_char, word2,word2_first_char)
+    #print(word1,word1_last_char, word2,word2_first_char)
     if word1_last_char in utils.UYIRGAL:
-        print('word1_last_char in utils.UYIRGAL')
+        #print('word1_last_char in utils.UYIRGAL')
         if word1_last_char in yagaram_chars:
-            print('word1_last_char in yagaram_chars')
+            #print('word1_last_char in yagaram_chars')
             tmp_char = ""
             ya = "ய";
             if (word2_first_char == "அ"):
-                print('word2_first_char is அ')
+                #print('word2_first_char is அ')
                 tmp_char = ya
             else:
-                print('word2_first_char is NOT அ')
+                #print('word2_first_char is NOT அ')
                 i = utils.get_index(utils.UYIRGAL,word2_first_char)
                 if (i>0):
                     tmp_char = ya + utils.TAMIL_UNICODE_2[i-1]
                 else:
                     tmp_char=""
-                print('tmp_char',tmp_char)
+                #print('tmp_char',tmp_char)
             tmp_str = "" 
             if tmp_char != "": 
                 tmp_str = tmp_char + word2[1:]
             else:
                 tmp_str = word2
-            print('tmp_str',tmp_str)
+            #print('tmp_str',tmp_str)
             combined_word = word1 + tmp_str
         else:
-            print('word1_last_char in yagaram_chars')
+            #print('word1_last_char in yagaram_chars')
             tmp_char = ""
             va = "வ"
             if (word2_first_char =="அ"):
-                print('word2_last_char is அ')
+                #print('word2_last_char is அ')
                 tmp_char = va
             else:
-                print('word2_last_char is NOT அ')
+                #print('word2_last_char is NOT அ')
                 i = utils.get_index(utils.UYIRGAL,word2_first_char)
                 if (i>0):
                     tmp_char = va + utils.TAMIL_UNICODE_2[i-1]
                 else:
                     tmp_char=""
-                print('tmp_char',tmp_char)
+                #print('tmp_char',tmp_char)
             tmp_str = "" 
             if tmp_char != "": 
                 tmp_str = tmp_char + word2[1:]
             else:
                 tmp_str = word2
-            print('tmp_str',tmp_str)
+            #print('tmp_str',tmp_str)
         combined_word = word1 + tmp_str
-        print('combned_word',combined_word)
+        #print('combned_word',combined_word)
         corrected_sentence += combined_word + ' '
-        print('corrected_sentence',corrected_sentence)
+        #print('corrected_sentence',corrected_sentence)
     return corrected_sentence
 
         
 if __name__ == '__main__':
-    word1 = "வர"
-    word2 = "இல்லை"
-    corrected_words = check_rule_1(word1, word2)
-    print(word1,word2,'corrected_words',corrected_words)
-    word1 = "மணி"
-    word2 = "அடித்தான்"
-    corrected_words = check_rule_1(word1, word2)
-    print(word1,word2,'corrected_words',corrected_words)
-    word1 = "பல"
-    word2 = "இடங்கள்"
-    corrected_words = check_rule_1(word1, word2)
-    print(word1,word2,'corrected_words',corrected_words)
-    word1 = "தீ"
-    word2 = "அணைப்பு"
-    corrected_words = check_rule_1(word1, word2)
-    print(word1,word2,'corrected_words',corrected_words)
-    word1 = "கை"
-    word2 = "குழந்தை"
-    corrected_words = check_rule_1(word1, word2)
-    print(word1,word2,'corrected_words',corrected_words)
-    #exit()
-    #uyir_mey = s._get_uyir_mey("வ்", "அ")
-    #print(uyir_mey,uyir_mey[0],uyir_mey[-1])
-    print(_split_uyir_mey('கைக்குழந்தை'))
+    word_pairs = [("வர","இல்லை"),("மணி","அடித்தான்"),("பல","இடங்கள்"),("தீ","அணைப்பு"),("கை","குழந்தை"),("பூ","பந்து")]
+    for word1,word2 in word_pairs:
+        corrected_words = check_rule_1(word1, word2)
+        print(word1,word2,'corrected_words',corrected_words)

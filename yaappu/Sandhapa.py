@@ -2,6 +2,7 @@
 from yaappu.grammar import Yaappu
 from yaappu import utils
 """ Sandhapaa Rules """
+import yaappu
 _SANDHAPA_RULE_1 = "எல்லா அடிகளிலும் மாத்திரை அளவு ஒன்றாக இருக்க வேண்டும்\n"+ \
                       "\tகுறில்  = ஒரு மாத்திரை, (குறிலொற்று, நெடில், நெடிலொற்றுகள் ) = இரண்டு மாத்திரை\n"+ \
             "\tஇடைச்சொற்களில் (\"ய்\",\"ர்\",\"ல்\",\"வ்\",\"ழ்\",\"ள்\",) சீர் நடுவே வந்தாலோ \n"+ \
@@ -17,8 +18,9 @@ RULE_CHECK = lambda rc : '\t' + GREEN_CHECK if rc else '\t' + RED_CROSS
 PERCENT = "{:.0%}"
 PERCENT_2 = "( {:.0%} " + GEQ + " {:.0%} )"
 class Sandhapa(Yaappu):
-    def __init__(self, text): #, treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
+    def __init__(self, text, poem_check_fraction = 0.9): #, treat_aaydham_as_kuril=False, treat_kutriyaligaram_as_otru=False):
         super().__init__(text)
+        self.poem_check_fraction = poem_check_fraction
         
     def duration(self):
         _duration = []
@@ -58,21 +60,21 @@ class Sandhapa(Yaappu):
         """ _VANNAPA_RULE_1 """
         len_arr = [line.word_count() for line in self.line_objects]
         duration_2d = np.array(utils.convert_1d_list_to_2d(self.duration(),len_arr),dtype=object)
-        duration_check = all(np.array_equal(duration_2d[0], duration_2d[i]) for i in range(1,len(duration_2d)))
+        duration_check,actual_fraction = utils.double_array_equal(duration_2d, self.poem_check_fraction)
         paa_str += RULE_CHECK(duration_check) + _SANDHAPA_RULE_1 + '\n\t'
-        paa_str += np.array2string(duration_2d) + "\n"
+        paa_str += np.array2string(duration_2d) + "\n\t"+ yaappu.grammar.PERCENT_2.format(actual_fraction,self.poem_check_fraction)+"\n"
+
+        #" _SANDHAPA_RULE_2 " 
+        seergal_2d = np.array(utils.convert_1d_list_to_2d(self.sandha_seergaL(),len_arr),dtype=object)
+        seer_check,actual_fraction = utils.string_array_equal(seergal_2d, self.poem_check_fraction)
+        paa_str += RULE_CHECK(seer_check) + _SANDHAPA_RULE_2 + '\n'
+        paa_str += np.array2string(seergal_2d) + "\n\t"+ yaappu.grammar.PERCENT_2.format(actual_fraction,self.poem_check_fraction)+"\n"
+
         paa_check = duration_check
         paa_str = "சந்தப்பா விதிகள் " + ("பொருந்துகிறது." if (paa_check) else "பொருந்தவில்லை.") + "\n" + paa_str
 
         return [paa_check, poem_type, paa_str]
     
-    def __check_for_sandhapaa_old(self):
-            import numpy as np
-            len_arr = [line.word_count() for line in self.line_objects]
-            _duration_2d = np.array(utils.convert_1d_list_to_2d(self.duration(),len_arr),dtype=object)
-            _is_sandha_paa = all(np.array_equal(_duration_2d[0], _duration_2d[i]) for i in range(1,len(_duration_2d)))
-            return _is_sandha_paa
-
 if __name__ == '__main__':
     """
     song = "விடமார் பணிபுலி வானோர் தொழவளர்\n"+ \
@@ -92,12 +94,12 @@ if __name__ == '__main__':
 "பொய்த்தோர் வில்லிகள் போவாராம் \n"+ \
 "இத்தோ டொப்பது யாதுண்டே"
     """
-    #"""
+    """
     song = "பொன்னி லங்கு பூங்கொ டிப்பொ லஞ்செய் கோதை வில்லிட\n" + \
 "மின்னி லங்கு மேக லைகள் ஆர்ப்ப ஆர்ப்ப எங்கணும்\n" + \
 "தென்ன வாழ்க வாழ்க என்று சென்று பந்த டித்துமே\n" + \
 "தேவ ரார மார்பன் வாழ்க என்று பந்த டித்துமே"
-    #"""
+    """
     #"""
     song ="குரக்கி னப்ப டைகொ டுகு  ரைக டலின் மீதுபோய்\n" + \
 "அரக்க ரங்க ரங்க வெஞ்ச  ரந்து ரந்த வாதிநீ\n" + \

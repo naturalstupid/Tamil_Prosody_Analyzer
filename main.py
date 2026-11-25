@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from nicegui import ui
 from yaappu import grammar, utils, Sandhapa, Vannapa, Marutpaa
-_APP_VERSION = "V1.7.7"
+_APP_VERSION = "V1.7.8"
 BASE_DIR = Path(__file__).resolve().parent
 TEST_INPUT_DIR = BASE_DIR / 'yaappu' / 'test_input'
 VANNAPPA_DIR = TEST_INPUT_DIR / 'vannappa_examples'

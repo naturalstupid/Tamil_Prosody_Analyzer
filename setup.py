@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="tamil_prosody_analyzer", # Replace with your own username
-    version="1.7.8",
+    version="1.7.9",
     author="Sundar Sundaresan",
     author_email="get.in.touch.with.sundar@gmail.com",
     description="The goal of the tamil prosody analyzer is to predict tamil poem type",

@@ -2,7 +2,20 @@ import os
 from pathlib import Path
 from nicegui import ui
 from yaappu import grammar, utils, Sandhapa, Vannapa, Marutpaa
-_APP_VERSION = "V1.7.8"
+import re
+
+
+def get_app_version() -> str:
+    setup_file = BASE_DIR / 'setup.py'
+    if setup_file.exists():
+        match = re.search(r'''version\s*=\s*['"]([^'"]+)['"]''', setup_file.read_text(encoding='utf-8'))
+        if match:
+            return f"V{match.group(1)}"
+    return 'V1.7.8'
+
+
+_APP_VERSION = get_app_version()
+
 BASE_DIR = Path(__file__).resolve().parent
 TEST_INPUT_DIR = BASE_DIR / 'yaappu' / 'test_input'
 VANNAPPA_DIR = TEST_INPUT_DIR / 'vannappa_examples'
